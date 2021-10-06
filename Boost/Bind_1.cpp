@@ -1,4 +1,4 @@
-//bind.hpp 헤더 Inport
+//bind.hpp 헤더 Import
 #include <boost/bind.hpp>
 #include <iostream>
 

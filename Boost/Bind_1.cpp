@@ -24,7 +24,6 @@ int main() {
 	//add_5_10은 add(5, 10)만 사용하도록 Bind되었다.
 	cout << add_5_10() << endl; /* 15 */
 
-
 	//입력 Parameter 받기
 	auto plus_5 = bind(add, _1, 5);
 	//_1, _2 와 같은 Placeholder를 사용하여 인수를 받을 수 있다.

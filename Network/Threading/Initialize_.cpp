@@ -15,6 +15,10 @@ unsigned __stdcall func(LPVOID prm) {
 	for (int i = start; i < end; i++) {
 		EnterCriticalSection(&cs); //Key를 흭득
 		counter++;
+		if (counter == 1) {
+			return 0; //counter 가 1일때 return시킨다.
+		}
+		//Key 반납이 이루어지지 않아 counter가 1인 상태로 DeadLock이 발생함
 		LeaveCriticalSection(&cs); //Key 반납
 	}
 	return 0;

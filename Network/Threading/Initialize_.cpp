@@ -13,7 +13,7 @@ unsigned __stdcall func(LPVOID prm) {
 	int start = *((int*)prm);//LPVOID*로 받은 데이터를 int*로 바꾼뒤 앞에 "*"를 붙여 값 추출
 	int end = *((int*)prm + 1);//그 다음 값을 받아오기 위해서는 포인터 +1 을 함.
 	for (int i = start; i < end; i++) {
-		EnterCriticalSection(&cs); //Key를 흭득
+		EnterCriticalSection(&cs); //Key를 획득
 		counter++;
 		if (counter == 1) {
 			return 0; //counter 가 1일때 return시킨다.

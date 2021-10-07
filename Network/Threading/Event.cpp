@@ -1,0 +1,61 @@
+#include <WinSock2.h>
+#include <process.h>
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
+int counter;
+
+HANDLE h_evt;
+
+unsigned __stdcall func(LPVOID prm) {
+	int start = *((int*)prm);//LPVOID*로 받은 데이터를 int*로 바꾼뒤 앞에 "*"를 붙여 값 추출
+	int end = *((int*)prm + 1);//그 다음 값을 받아오기 위해서는 포인터 +1 을 함.
+
+	for (int i = start; i < end; i++) {
+		//key 흭득
+		WaitForSingleObject(h_evt, INFINITE); //Manual Reset
+		//계속 Signalled 상태
+		ResetEvent(h_evt);
+		//non-signalled 상태로 바꿔줌. 단, 보장을 해줄 수 없음
+		counter++;
+
+		//key 반납
+		SetEvent(h_evt);
+	}
+	return 0;
+}
+
+int main() {
+	HANDLE th[16];
+	int arg[] = { 0,100000 };
+
+	h_evt = CreateEvent(NULL, true, false, NULL);
+
+	SYSTEM_INFO info;
+	GetSystemInfo(&info);
+	cout << "Number of Proccessors is " << info.dwNumberOfProcessors << endl;
+
+
+	clock_t stime = clock();
+
+	//Thread 생성
+	for (DWORD i = 0; i < info.dwNumberOfProcessors; i++) {
+		th[i] = (HANDLE)_beginthreadex(NULL, 0, &func, arg/*Arg를 주소값으로 넘겨줌*/, 0, NULL);
+	}
+
+	//Event 객체를 Non_signalled 에서 Signalled로 변환
+	SetEvent(h_evt);
+
+	WaitForMultipleObjects(info.dwNumberOfProcessors, th, true, INFINITE);
+
+	clock_t etime = clock();
+	//WaitForMultipleObjects(반복할 횟수, 핸들의 값을 모아둔 주소값, 전부 실행할 때 까지 대기?, TIMEOUT 시간)
+
+	//WaitForSingleObject(th, INFINITE);
+
+	cout << "main : " << counter << endl
+		<< "Time : " << (double)((etime)-(stime)) / CLOCKS_PER_SEC << endl;
+	return 0;
+}

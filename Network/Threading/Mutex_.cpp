@@ -1,31 +1,32 @@
 #include <WinSock2.h>
 #include <process.h>
 #include <iostream>
+#include <time.h>
 
 using std::cout;
 using std::endl;
 
 int counter;
 
-HANDLE h_mutex; //CreateMutex¿¡¼­ ³ª¿Â HANDLEÀ» ¹ŞÀ» º¯¼ö »ı¼º
+HANDLE h_mutex; //CreateMutexì—ì„œ ë‚˜ì˜¨ HANDLEì„ ë°›ì„ ë³€ìˆ˜ ìƒì„±
 
 unsigned __stdcall func(LPVOID prm) {
-	int start = *((int*)prm);//LPVOID*·Î ¹ŞÀº µ¥ÀÌÅÍ¸¦ int*·Î ¹Ù²ÛµÚ ¾Õ¿¡ "*"¸¦ ºÙ¿© °ª ÃßÃâ
-	int end = *((int*)prm + 1);//±× ´ÙÀ½ °ªÀ» ¹Ş¾Æ¿À±â À§ÇØ¼­´Â Æ÷ÀÎÅÍ +1 À» ÇÔ.
+	int start = *((int*)prm);//LPVOID*ë¡œ ë°›ì€ ë°ì´í„°ë¥¼ int*ë¡œ ë°”ê¾¼ë’¤ ì•ì— "*"ë¥¼ ë¶™ì—¬ ê°’ ì¶”ì¶œ
+	int end = *((int*)prm + 1);//ê·¸ ë‹¤ìŒ ê°’ì„ ë°›ì•„ì˜¤ê¸° ìœ„í•´ì„œëŠ” í¬ì¸í„° +1 ì„ í•¨.
 	for (int i = start; i < end; i++) {
 		WaitForSingleObject(h_mutex, INFINITE);
-		//ÇÚµé°ªÀ¸·Î ¹Ş¾Æ¿Â h_mutex¸¦ ÁØ´Ù
-		//Auto ResetÀ¸·Î ÀÎÇØ h_mutex´Â non-signal·Î ÃÊ±âÈ­ µÊ
+		//í•¸ë“¤ê°’ìœ¼ë¡œ ë°›ì•„ì˜¨ h_mutexë¥¼ ì¤€ë‹¤
+		//Auto Resetìœ¼ë¡œ ì¸í•´ h_mutexëŠ” non-signalë¡œ ì´ˆê¸°í™” ë¨
 
 		counter++;
 
 		if (counter == 1) {
-			return 0; //Á¦ÀÏ Ã³À½ counter°¡ 1ÀÏ¶§ returnÀ» ½ÃÅ´
-			//1500001ÀÌ ³ª¿È
+			return 0; //ì œì¼ ì²˜ìŒ counterê°€ 1ì¼ë•Œ returnì„ ì‹œí‚´
+			//1500001ì´ ë‚˜ì˜´
 		}
 
 		ReleaseMutex(h_mutex);
-		//h_mutexÀÇ »óÅÂ¸¦ Signalled·Î º¯È¯
+		//h_mutexì˜ ìƒíƒœë¥¼ Signalledë¡œ ë³€í™˜
 	}
 	return 0;
 }
@@ -34,8 +35,8 @@ int main() {
 	HANDLE th[16];
 	int arg[] = { 0,100000 };
 
-	//¹ÂÅØ½º Ä¿³Î ¿ÀºêÁ§Æ®¸¦ »ı¼º
-	h_mutex = CreateMutex(NULL, false, NULL);//(º¸¾È°ª, Owner¸¦ Create¸¦ È£ÃâÇÑ »ç¶÷ÀÌ °®´Â°¡?, ÀÌ¸§) ÇÚµé°ª ¹İÈ¯
+	//ë®¤í…ìŠ¤ ì»¤ë„ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±
+	h_mutex = CreateMutex(NULL, false, NULL);//(ë³´ì•ˆê°’, Ownerë¥¼ Createë¥¼ í˜¸ì¶œí•œ ì‚¬ëŒì´ ê°–ëŠ”ê°€?, ì´ë¦„) í•¸ë“¤ê°’ ë°˜í™˜
 	
 
 	SYSTEM_INFO info;
@@ -44,12 +45,12 @@ int main() {
 
 	clock_t stime = clock();
 	for (DWORD i = 0; i < info.dwNumberOfProcessors; i++) {
-		th[i] = (HANDLE)_beginthreadex(NULL, 0, &func, arg/*Arg¸¦ ÁÖ¼Ò°ªÀ¸·Î ³Ñ°ÜÁÜ*/, 0, NULL);
+		th[i] = (HANDLE)_beginthreadex(NULL, 0, &func, arg/*Argë¥¼ ì£¼ì†Œê°’ìœ¼ë¡œ ë„˜ê²¨ì¤Œ*/, 0, NULL);
 	}
 
 	WaitForMultipleObjects(info.dwNumberOfProcessors, th, true, INFINITE);
 	clock_t etime = clock();
-	//WaitForMultipleObjects(¹İº¹ÇÒ È½¼ö, ÇÚµéÀÇ °ªÀ» ¸ğ¾ÆµĞ ÁÖ¼Ò°ª, ÀüºÎ ½ÇÇàÇÒ ¶§ ±îÁö ´ë±â?, TIMEOUT ½Ã°£)
+	//WaitForMultipleObjects(ë°˜ë³µí•  íšŸìˆ˜, í•¸ë“¤ì˜ ê°’ì„ ëª¨ì•„ë‘” ì£¼ì†Œê°’, ì „ë¶€ ì‹¤í–‰í•  ë•Œ ê¹Œì§€ ëŒ€ê¸°?, TIMEOUT ì‹œê°„)
 
 	//WaitForSingleObject(th, INFINITE);
 

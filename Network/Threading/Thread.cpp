@@ -8,8 +8,8 @@ using std::endl;
 int counter;
 
 unsigned __stdcall func(LPVOID prm) {
-	int start = *((int*)prm);//LPVOID*·Î ¹ŞÀº µ¥ÀÌÅÍ¸¦ int*·Î ¹Ù²ÛµÚ ¾Õ¿¡ "*"¸¦ ºÙ¿© °ª ÃßÃâ
-	int end = *((int*)prm + 1);//±× ´ÙÀ½ °ªÀ» ¹Ş¾Æ¿À±â À§ÇØ¼­´Â Æ÷ÀÎÅÍ +1 À» ÇÔ.
+	int start = *((int*)prm);//LPVOID*ë¡œ ë°›ì€ ë°ì´í„°ë¥¼ int*ë¡œ ë°”ê¾¼ë’¤ ì•ì— "*"ë¥¼ ë¶™ì—¬ ê°’ ì¶”ì¶œ
+	int end = *((int*)prm + 1);//ê·¸ ë‹¤ìŒ ê°’ì„ ë°›ì•„ì˜¤ê¸° ìœ„í•´ì„œëŠ” í¬ì¸í„° +1 ì„ í•¨.
 	for (int i = start; i < end; i++) {
 		counter++;
 	} 
@@ -25,11 +25,11 @@ int main() {
 	cout << "Number of Proccessors is " << info.dwNumberOfProcessors << endl;
 
 	for (DWORD i = 0; i < info.dwNumberOfProcessors; i++) {
-		th[i] = (HANDLE)_beginthreadex(NULL, 0, &func, arg/*Arg¸¦ ÁÖ¼Ò°ªÀ¸·Î ³Ñ°ÜÁÜ*/, 0, NULL);
+		th[i] = (HANDLE)_beginthreadex(NULL, 0, &func, arg/*Argë¥¼ ì£¼ì†Œê°’ìœ¼ë¡œ ë„˜ê²¨ì¤Œ*/, 0, NULL);
 	}
 
 	WaitForMultipleObjects(info.dwNumberOfProcessors, th, true, INFINITE);
-	//WaitForMultipleObjects(¹İº¹ÇÒ È½¼ö, ÇÚµéÀÇ °ªÀ» ¸ğ¾ÆµĞ ÁÖ¼Ò°ª, ÀüºÎ ½ÇÇàÇÒ ¶§ ±îÁö ´ë±â?, TIMEOUT ½Ã°£)
+	//WaitForMultipleObjects(ë°˜ë³µí•  íšŸìˆ˜, í•¸ë“¤ì˜ ê°’ì„ ëª¨ì•„ë‘” ì£¼ì†Œê°’, ì „ë¶€ ì‹¤í–‰í•  ë•Œ ê¹Œì§€ ëŒ€ê¸°?, TIMEOUT ì‹œê°„)
 
 	//WaitForSingleObject(th, INFINITE);
 

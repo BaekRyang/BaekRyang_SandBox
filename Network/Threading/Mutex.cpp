@@ -7,47 +7,47 @@ using std::endl;
 
 int counter;
 
-HANDLE h_mutex; //CreateMutex¿¡¼­ ³ª¿Â HANDLEÀ» ¹ŞÀ» º¯¼ö »ı¼º
+HANDLE h_mutex; //CreateMutexì—ì„œ ë‚˜ì˜¨ HANDLEì„ ë°›ì„ ë³€ìˆ˜ ìƒì„±
 
 unsigned __stdcall func(LPVOID prm) {
-	/* Argment Ã³¸® */
-	int start = *((int*)prm);//LPVOID*·Î ¹ŞÀº µ¥ÀÌÅÍ¸¦ int*·Î ¹Ù²ÛµÚ ¾Õ¿¡ "*"¸¦ ºÙ¿© °ª ÃßÃâ
-	int end = *((int*)prm + 1);//±× ´ÙÀ½ °ªÀ» ¹Ş¾Æ¿À±â À§ÇØ¼­´Â Æ÷ÀÎÅÍ +1 À» ÇÔ.
+	/* Argment ì²˜ë¦¬ */
+	int start = *((int*)prm);//LPVOID*ë¡œ ë°›ì€ ë°ì´í„°ë¥¼ int*ë¡œ ë°”ê¾¼ë’¤ ì•ì— "*"ë¥¼ ë¶™ì—¬ ê°’ ì¶”ì¶œ
+	int end = *((int*)prm + 1);//ê·¸ ë‹¤ìŒ ê°’ì„ ë°›ì•„ì˜¤ê¸° ìœ„í•´ì„œëŠ” í¬ì¸í„° +1 ì„ í•¨.
 
-	//Argment·Î ¹Ş¾Æ¿Â StartºÎÅÍ end±îÁö ¹İº¹
+	//Argmentë¡œ ë°›ì•„ì˜¨ Startë¶€í„° endê¹Œì§€ ë°˜ë³µ
 	for (int i = start; i < end; i++) {
-		//Key ¹Ş±â
+		//Key ë°›ê¸°
 		WaitForSingleObject(h_mutex, INFINITE);
-		//ÇÚµé°ªÀ¸·Î ¹Ş¾Æ¿Â h_mutex¸¦ ÁØ´Ù
-		//Auto ResetÀ¸·Î ÀÎÇØ h_mutex´Â non-signal·Î ÃÊ±âÈ­ µÊ ** ResetEvent()¿Í ´Ù¸£°Ô ÇÏµå¿ş¾îÀûÀ¸·Î º¸Àå µÇ¾îÀÖÀ½ **
+		//í•¸ë“¤ê°’ìœ¼ë¡œ ë°›ì•„ì˜¨ h_mutexë¥¼ ì¤€ë‹¤
+		//Auto Resetìœ¼ë¡œ ì¸í•´ h_mutexëŠ” non-signalë¡œ ì´ˆê¸°í™” ë¨ ** ResetEvent()ì™€ ë‹¤ë¥´ê²Œ í•˜ë“œì›¨ì–´ì ìœ¼ë¡œ ë³´ì¥ ë˜ì–´ìˆìŒ **
 
 		counter++;
 
-		//Key ¹İ³³
-		ReleaseMutex(h_mutex); //¸¸¾à ReleaseMutex°¡ ¾ø´õ¶óµµ ÀÚµ¿À¸·Î O/S¿¡¼­ Signalled »óÅÂ·Î ¸¸µé¾îÁØ´Ù.
-		//h_mutexÀÇ »óÅÂ¸¦ Signalled·Î º¯È¯
+		//Key ë°˜ë‚©
+		ReleaseMutex(h_mutex); //ë§Œì•½ ReleaseMutexê°€ ì—†ë”ë¼ë„ ìë™ìœ¼ë¡œ O/Sì—ì„œ Signalled ìƒíƒœë¡œ ë§Œë“¤ì–´ì¤€ë‹¤.
+		//h_mutexì˜ ìƒíƒœë¥¼ Signalledë¡œ ë³€í™˜
 	}
 	return 0;
 }
 
 int main() {
 	HANDLE th[16];
-	int arg[] = { 0,100 }; //func()À» ÇÒ¶§ ³Ñ°ÜÁÙ Argment¸¦ ÀúÀå
+	int arg[] = { 0,100 }; //func()ì„ í• ë•Œ ë„˜ê²¨ì¤„ Argmentë¥¼ ì €ì¥
 
-	//¹ÂÅØ½º Ä¿³Î ¿ÀºêÁ§Æ®¸¦ »ı¼º
-	h_mutex = CreateMutex(NULL, false, NULL);//(º¸¾È°ª, Owner¸¦ Create¸¦ È£ÃâÇÑ »ç¶÷ÀÌ °®´Â°¡?, ÀÌ¸§) ÇÚµé°ª ¹İÈ¯
+	//ë®¤í…ìŠ¤ ì»¤ë„ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±
+	h_mutex = CreateMutex(NULL, false, NULL);//(ë³´ì•ˆê°’, Ownerë¥¼ Createë¥¼ í˜¸ì¶œí•œ ì‚¬ëŒì´ ê°–ëŠ”ê°€?, ì´ë¦„) í•¸ë“¤ê°’ ë°˜í™˜
 
 
 	SYSTEM_INFO info;
 	GetSystemInfo(&info);
 	cout << "Number of Proccessors is " << info.dwNumberOfProcessors << endl;
 
-	clock_t stime = clock(); //½Ã°£ ÃøÁ¤¿ë
+	clock_t stime = clock(); //ì‹œê°„ ì¸¡ì •ìš©
 
-	//Thread »ı¼º
+	//Thread ìƒì„±
 	for (DWORD i = 0; i < info.dwNumberOfProcessors; i++) {
-		//HANDLE ¹è¿­ th¿¡ Thread¸¦ »ı¼ºÇÏ¿© handleÀ» ³Ö¾îÁØ´Ù.
-		//Parameter·Î [Security], [Buf»çÀÌÁî], [ÇÔ¼öÁÖ¼Ò], [Argment] [FLAG], [Thread ÁÖ¼Ò]¸¦ »ç¿ëÇÑ´Ù. 
+		//HANDLE ë°°ì—´ thì— Threadë¥¼ ìƒì„±í•˜ì—¬ handleì„ ë„£ì–´ì¤€ë‹¤.
+		//Parameterë¡œ [Security], [Bufì‚¬ì´ì¦ˆ], [í•¨ìˆ˜ì£¼ì†Œ], [Argment] [FLAG], [Thread ì£¼ì†Œ]ë¥¼ ì‚¬ìš©í•œë‹¤. 
 
 		th[i] = (HANDLE)_beginthreadex(NULL, 0, &func, arg, 0, NULL);
 	}
@@ -55,7 +55,7 @@ int main() {
 	WaitForMultipleObjects(info.dwNumberOfProcessors, th, true, INFINITE);
 
 
-	clock_t etime = clock(); //½Ã°£ ÃøÁ¤¿ë
+	clock_t etime = clock(); //ì‹œê°„ ì¸¡ì •ìš©
 
 	cout << "main : " << counter << endl
 		 << "Time : " << (double)((etime)-(stime)) / CLOCKS_PER_SEC << endl;

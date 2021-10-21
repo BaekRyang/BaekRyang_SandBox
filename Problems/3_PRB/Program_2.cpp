@@ -5,21 +5,21 @@ class TwoDimension
 {
 	double x, y;
 public:
-	//ÃÊ±âÈ­ ¸®½ºÆ®¸¦ »ç¿ëÇÏ¿© ¸â¹ö º¯¼ö¸¦ ÃÊ±âÈ­ ÇØÁØµÚ, ÃÊ±âÈ­ µÈ °ªÀ» Ãâ·ÂÇÑ´Ù.
+	//ì´ˆê¸°í™” ë¦¬ìŠ¤íŠ¸ë¥¼ ì‚¬ìš©í•˜ì—¬ ë©¤ë²„ ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™” í•´ì¤€ë’¤, ì´ˆê¸°í™” ëœ ê°’ì„ ì¶œë ¥í•œë‹¤.
 	TwoDimension(double i, double j) : x(i), y(j) { cout << endl << this->x << ":" << y; };
 };
 
-//TwoDimension¿¡ ÀÖ´Â x,y¸¦ »ç¿ëÇÏ±â À§ÇØ »ó¼ÓÀ» ½ÃÄÑÁØ´Ù.
-//ThreeDimensionÀº TwoDimension()À» »ç¿ë ÇÒ ¼ö ¾øµµ·Ï private·Î »ó¼Ó Á¢±ÙÀÚ¸¦ ÁöÁ¤ÇÑ´Ù.
+//TwoDimensionì— ìžˆëŠ” x,yë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ ìƒì†ì„ ì‹œì¼œì¤€ë‹¤.
+//ThreeDimensionì€ TwoDimension()ì„ ì‚¬ìš© í•  ìˆ˜ ì—†ë„ë¡ privateë¡œ ìƒì† ì ‘ê·¼ìžë¥¼ ì§€ì •í•œë‹¤.
 class ThreeDimension : private TwoDimension
 {
 	double z;
 public:
-	//TwoDimensionÀÌ ÃÊ±âÈ­ ¸®½ºÆ®¸¦ »ç¿ëÇÏ°í ÀÖ±â ¶§¹®¿¡
-	//ThreeDimension¿¡¼­ x, y¸¦ ÃÊ±âÈ­ ÇÒ¶§ ºÎ¸ðÀÇ »ý¼ºÀÚ¸¦ È£ÃâÇÏ¿© ÃÊ±âÈ­ ÇØÁØ´Ù.
+	//TwoDimensionì´ ì´ˆê¸°í™” ë¦¬ìŠ¤íŠ¸ë¥¼ ì‚¬ìš©í•˜ê³  ìžˆê¸° ë•Œë¬¸ì—
+	//ThreeDimensionì—ì„œ x, yë¥¼ ì´ˆê¸°í™” í• ë•Œ ë¶€ëª¨ì˜ ìƒì„±ìžë¥¼ í˜¸ì¶œí•˜ì—¬ ì´ˆê¸°í™” í•´ì¤€ë‹¤.
 
-	/*cout << x << ":" << y << ":" << z << endl; ·Î Ãâ·ÂÀ» ÇÏ·Á°í ÇßÀ¸³ª x,y°¡ private·Î ¼±¾ðµÇ¾î Á¢±ÙÀÌ ºÒ°¡´É Çß´Ù.*/
-	/*ÀÚ½Ä Å¬·¡½º¸¦ »ý¼ºÇÒ ¶§ ºÎ¸ð Å¬·¡½ºÀÇ »ý¼ºÀÚµµ °°ÀÌ È£ÃâÀÌ µÇ¹Ç·Î, x, y´Â ThreeDimensionÀÇ »ý¼ºÀÚ¿¡¼­ Á¢±ÙÇÒ ÇÊ¿ä°¡ ¾ø´Ù.*/
+	/*cout << x << ":" << y << ":" << z << endl; ë¡œ ì¶œë ¥ì„ í•˜ë ¤ê³  í–ˆìœ¼ë‚˜ x,yê°€ privateë¡œ ì„ ì–¸ë˜ì–´ ì ‘ê·¼ì´ ë¶ˆê°€ëŠ¥ í–ˆë‹¤.*/
+	/*ìžì‹ í´ëž˜ìŠ¤ë¥¼ ìƒì„±í•  ë•Œ ë¶€ëª¨ í´ëž˜ìŠ¤ì˜ ìƒì„±ìžë„ ê°™ì´ í˜¸ì¶œì´ ë˜ë¯€ë¡œ, x, yëŠ” ThreeDimensionì˜ ìƒì„±ìžì—ì„œ ì ‘ê·¼í•  í•„ìš”ê°€ ì—†ë‹¤.*/
 	ThreeDimension(double i, double j, double k) : TwoDimension(i, j), z(k) { cout << ":" << z; };
 };
 

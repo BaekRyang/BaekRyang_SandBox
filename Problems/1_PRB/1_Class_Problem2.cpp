@@ -2,7 +2,7 @@
 
 using namespace std;
 
-//Å¬·¡½º ¼±¾ğ
+//í´ë˜ìŠ¤ ì„ ì–¸
 class MyArray
 {
 private:;
@@ -12,24 +12,24 @@ public:
 	MyArray() {};
 	~MyArray() {};
 
-	//¹è¿­À» Æ¯Á¤ °ªÀ¸·Î Ã¤¿ó´Ï´Ù.
+	//ë°°ì—´ì„ íŠ¹ì • ê°’ìœ¼ë¡œ ì±„ì›ë‹ˆë‹¤.
 	void fillArray(int _input) {
 		for (int i = 0; i < arraySize; i++) {
 			arrayLocation[i] = _input;
 		}
 	}
-	//¹è¿­ ¾È¿¡ ÀÖ´Â°ªµéÀ» Ãâ·ÂÇÕ´Ï´Ù.
+	//ë°°ì—´ ì•ˆì— ìˆëŠ”ê°’ë“¤ì„ ì¶œë ¥í•©ë‹ˆë‹¤.
 	void PrintArray() {
 		for (int i = 0; i < arraySize; i++) {
 			cout << arrayLocation[i] << endl;
 		}
 	}
-	//ÇÔ¼ö¸¦ ÅëÇØ¼­ ¹è¿­À» µ¿ÀûÇÒ´çÇÑ´Ù.
+	//í•¨ìˆ˜ë¥¼ í†µí•´ì„œ ë°°ì—´ì„ ë™ì í• ë‹¹í•œë‹¤.
 	void CreateArray(int _input) {
 		arrayLocation = new int[_input];
 		arraySize = _input;
 	}
-	//ÇÒ´çµÈ ¹è¿­ÀÇ ÁÖ¼Ò°ªÀ» ¹İÈ¯½ÃÅ²´Ù.
+	//í• ë‹¹ëœ ë°°ì—´ì˜ ì£¼ì†Œê°’ì„ ë°˜í™˜ì‹œí‚¨ë‹¤.
 	int* PrintArrayLoc() {
 		return arrayLocation;
 	}

@@ -14,37 +14,37 @@ int main() {
 
 	WSADATA wsa;
 
-	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ÃÊ±âÈ­
+	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ì´ˆê¸°í™”
 		err_display("WSAStartup");
 		return -1;
 	}
 
-	//¼ÒÄÏ »ı¼º
+	//ì†Œì¼“ ìƒì„±
 	SOCKET c_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP); //Server Socket
 	if (c_sock == INVALID_SOCKET) {
 		err_display("socket()");
 		return -1;
 	}
 
-	//¼­¹öÀÇ IPÁÖ¼Ò ¹× Æ÷Æ®¹øÈ£ ÁöÁ¤
+	//ì„œë²„ì˜ IPì£¼ì†Œ ë° í¬íŠ¸ë²ˆí˜¸ ì§€ì •
 	SOCKADDR_IN saddr;
 	saddr.sin_family = AF_INET;
 	saddr.sin_port = htons(8000);
 	Insert_IP("127.0.0.1", &saddr.sin_addr);
 
-	//¿¬°á ¿ä±¸
+	//ì—°ê²° ìš”êµ¬
 	if (connect(c_sock, (SOCKADDR*)&saddr, sizeof(saddr))) {
 		err_display("connect()");
 		return -1;
 	}
 
-	//Å°º¸µå·Î ºÎÅÍ ÀÔ·Â¹ŞÀº ³»¿ëÀ» ¼­¹ö·Î ¼Û½ÅÇÏ°í, ´Ù½Ã ¼­¹ö·ÎºÎÅÍ ¼Û½ÅÇÑ ³»¿ë
-	//È­¸é¿¡ µğ½ºÇÃ·¹ÀÌ
+	//í‚¤ë³´ë“œë¡œ ë¶€í„° ì…ë ¥ë°›ì€ ë‚´ìš©ì„ ì„œë²„ë¡œ ì†¡ì‹ í•˜ê³ , ë‹¤ì‹œ ì„œë²„ë¡œë¶€í„° ì†¡ì‹ í•œ ë‚´ìš©
+	//í™”ë©´ì— ë””ìŠ¤í”Œë ˆì´
 	char buf[80];
 	int sendlen;
 	int recvlen;
 	while (1) {
-		fgets(buf, 80, stdin); //¹®ÀåÀ» ÀÔ·ÂÇÏ°í EnterÀ» ÇÏ¸é '\n'ÀÌ ºÙ°í ÀÚµ¿ÀûÀ¸·Î ¸¶Áö¸·¿¡ '\0' ÀÔ·ÂµÊ
+		fgets(buf, 80, stdin); //ë¬¸ì¥ì„ ì…ë ¥í•˜ê³  Enterì„ í•˜ë©´ '\n'ì´ ë¶™ê³  ìë™ì ìœ¼ë¡œ ë§ˆì§€ë§‰ì— '\0' ì…ë ¥ë¨
 		sendlen = strlen(buf);
 		send(c_sock, buf, sendlen, 0);
 		recvlen = recv(c_sock, buf, 80, 0);

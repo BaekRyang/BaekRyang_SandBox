@@ -12,14 +12,14 @@ int main() {
 	WSAStartup(MAKEWORD(2, 2), &wsa);
 
 	//IP Addr, Port Num
-	//1. SOCKADDR_IN ¸Ş¸ğ¸® »ı¼º
+	//1. SOCKADDR_IN ë©”ëª¨ë¦¬ ìƒì„±
 	SOCKADDR_IN saddr;
 
-	//2. »ı¼ºµÈ ¸Ş¸ğ¸®¿¡ IPÁÖ¼Ò¹× Æ÷Æ®¹øÈ£ ÀÔ·Â
+	//2. ìƒì„±ëœ ë©”ëª¨ë¦¬ì— IPì£¼ì†Œë° í¬íŠ¸ë²ˆí˜¸ ì…ë ¥
 	saddr.sin_family = AF_INET;
 	saddr.sin_port = htons(8000);
 
-	//µÑ´Ù °°Àº ±â´ÉÀÓ
+	//ë‘˜ë‹¤ ê°™ì€ ê¸°ëŠ¥ì„
 	InetPton(AF_INET, "1,2,3,4", &saddr.sin_addr);
 	//inet_pton(2, "1,2,3,4", &saddr.sin_addr);
 

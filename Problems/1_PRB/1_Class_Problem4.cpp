@@ -2,8 +2,8 @@
 
 using namespace std;
 
-//ÆÄ¶ó¹ÌÅÍ·Î »ý¹°Ã¼¸¦ »ç¿ëÇÏ·Á°í ÇÏ´Âµ¥
-//´Ù¾çÇÑ Æ¯¼ºÀ» ÇÏ³ª·Î ¹­±â À§ÇØ ±¸Á¶Ã¼¸¦ »ç¿ëÇÑ´Ù.
+//íŒŒë¼ë¯¸í„°ë¡œ ìƒë¬¼ì²´ë¥¼ ì‚¬ìš©í•˜ë ¤ê³  í•˜ëŠ”ë°
+//ë‹¤ì–‘í•œ íŠ¹ì„±ì„ í•˜ë‚˜ë¡œ ë¬¶ê¸° ìœ„í•´ êµ¬ì¡°ì²´ë¥¼ ì‚¬ìš©í•œë‹¤.
 struct Creture
 {
 	char name[10];
@@ -11,28 +11,28 @@ struct Creture
 	int def = 10;
 };
 
-//µ¥¹ÌÁö¸¦ °¡ÇÏ´Â ÇÔ¼ö¸¦ »ý¼ºÇÑ´Ù.
-//ÀÌ ÇÔ¼ö¿¡¼­´Â ¹æ¾î·Â °è»êÀ» ÇÑ´Ù.
+//ë°ë¯¸ì§€ë¥¼ ê°€í•˜ëŠ” í•¨ìˆ˜ë¥¼ ìƒì„±í•œë‹¤.
+//ì´ í•¨ìˆ˜ì—ì„œëŠ” ë°©ì–´ë ¥ ê³„ì‚°ì„ í•œë‹¤.
 int Damage(Creture *target, int _damage) {
 	target->hp -= _damage - target->def;
-	cout << target->name << "¿¡°Ô " << _damage << "ÀÇ ÇÇÇØ¸¦ ÀÔÇûÁö¸¸" << endl;
-	cout << target->def << "¸¸Å­ ¹æ¾îÇß½À´Ï´Ù." << endl;
+	cout << target->name << "ì—ê²Œ " << _damage << "ì˜ í”¼í•´ë¥¼ ìž…í˜”ì§€ë§Œ" << endl;
+	cout << target->def << "ë§Œí¼ ë°©ì–´í–ˆìŠµë‹ˆë‹¤." << endl;
 	return target->hp;
 }
 
-//ÇÔ¼ö ¿À¹ö·ÎµùÀ¸·Î °°Àº ÀÌ¸§ÀÇ ÇÔ¼ö¸¦ ¶Ç ÇÏ³ª¸¸µç´Ù.
-//ÀÌ¹ø ÇÔ¼ö¿¡¼­´Â boolÆÄ¶ó¹ÌÅÍ¸¦ ¹Þ¾Æ ¹æ¾î·Â °è»êÀ» ÇÏÁö ¾Êµµ·Ï ÇÑ´Ù.
+//í•¨ìˆ˜ ì˜¤ë²„ë¡œë”©ìœ¼ë¡œ ê°™ì€ ì´ë¦„ì˜ í•¨ìˆ˜ë¥¼ ë˜ í•˜ë‚˜ë§Œë“ ë‹¤.
+//ì´ë²ˆ í•¨ìˆ˜ì—ì„œëŠ” boolíŒŒë¼ë¯¸í„°ë¥¼ ë°›ì•„ ë°©ì–´ë ¥ ê³„ì‚°ì„ í•˜ì§€ ì•Šë„ë¡ í•œë‹¤.
 int Damage(Creture *target, int _damage, bool _isTrue) {
 	target->hp -= _damage;
-	cout << target->name << "¿¡°Ô " << _damage << "ÀÇ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù." << endl;
-	cout << "¹æ¾î·ÂÀÌ" << target->def << "ÀÌÁö¸¸, ¹æ¾îÇÏÁö ¸øÇß½À´Ï´Ù." << endl;
+	cout << target->name << "ì—ê²Œ " << _damage << "ì˜ í”¼í•´ë¥¼ ìž…í˜”ìŠµë‹ˆë‹¤." << endl;
+	cout << "ë°©ì–´ë ¥ì´" << target->def << "ì´ì§€ë§Œ, ë°©ì–´í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤." << endl;
 	return target->hp;
 }
 
 int main() {
 	Creture Player;
 	strcpy_s(Player.name, "Player");
-	cout << "³²Àº HP : " << Player.hp << " -> " << Damage(&Player, 15) << endl;
-	cout << "³²Àº HP : " << Player.hp << " -> " << Damage(&Player, 15, true) << endl;
+	cout << "ë‚¨ì€ HP : " << Player.hp << " -> " << Damage(&Player, 15) << endl;
+	cout << "ë‚¨ì€ HP : " << Player.hp << " -> " << Damage(&Player, 15, true) << endl;
 }
 

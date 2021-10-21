@@ -5,7 +5,7 @@ protected:
 public:
 	int v3;
 
-	// Á¢±ÙÀÚ (accessor)
+	// ì ‘ê·¼ì (accessor)
 	int getV1() { 
 		return v1;
 	};  
@@ -16,7 +16,7 @@ public:
 		return v3;
 	};
 
-	// ¼³Á¤ÀÚ (mutator)
+	// ì„¤ì •ì (mutator)
 	void setV1(int v) {
 		v1 = v;
 	};
@@ -32,13 +32,13 @@ class Derived1 : public Base {
 public:
 	int Dv1V = 0;
 	void Dv1F() {
-		v1 = 1; //Private Á¢±ÙºÒ°¡
-		v2 = 2; //Protected Á¢±Ù°¡´É(»ó¼Ó¹Ş´Â Å¬·¡½º¿¡¼­´Â Á¢±Ù°¡´É)
-		v3 = 3; //Public Á¢±Ù°¡´É
+		v1 = 1; //Private ì ‘ê·¼ë¶ˆê°€
+		v2 = 2; //Protected ì ‘ê·¼ê°€ëŠ¥(ìƒì†ë°›ëŠ” í´ë˜ìŠ¤ì—ì„œëŠ” ì ‘ê·¼ê°€ëŠ¥)
+		v3 = 3; //Public ì ‘ê·¼ê°€ëŠ¥
 
 		getV1();
 		getV2(); 
-		getV3(); // Á¢±ÙÀÚ¿Í È£ÃâÀÚ´Â publicÀ¸·Î ¼±¾ğµÇ¾îÀÖ±â ¶§¹®¿¡ Á¢±Ù°¡´É
+		getV3(); // ì ‘ê·¼ìì™€ í˜¸ì¶œìëŠ” publicìœ¼ë¡œ ì„ ì–¸ë˜ì–´ìˆê¸° ë•Œë¬¸ì— ì ‘ê·¼ê°€ëŠ¥
 		setV1(1);
 		setV2(2);
 		setV3(3);
@@ -50,13 +50,13 @@ class Derived2 : protected Base {
 public:
 	int Dv2V = 0;
 	void Dv2F() {
-		v1 = 1; //Private Á¢±ÙºÒ°¡
-		v2 = 2; //Protected Á¢±Ù°¡´É(»ó¼Ó¹Ş´Â Å¬·¡½º¿¡¼­´Â Á¢±Ù°¡´É)
-		v3 = 3; //Public Á¢±Ù°¡´É
+		v1 = 1; //Private ì ‘ê·¼ë¶ˆê°€
+		v2 = 2; //Protected ì ‘ê·¼ê°€ëŠ¥(ìƒì†ë°›ëŠ” í´ë˜ìŠ¤ì—ì„œëŠ” ì ‘ê·¼ê°€ëŠ¥)
+		v3 = 3; //Public ì ‘ê·¼ê°€ëŠ¥
 
 		getV1();
 		getV2();
-		getV3(); // Á¢±ÙÀÚ¿Í È£ÃâÀÚ´Â publicÀ¸·Î ¼±¾ğµÇ¾îÀÖ±â ¶§¹®¿¡ Á¢±Ù°¡´É
+		getV3(); // ì ‘ê·¼ìì™€ í˜¸ì¶œìëŠ” publicìœ¼ë¡œ ì„ ì–¸ë˜ì–´ìˆê¸° ë•Œë¬¸ì— ì ‘ê·¼ê°€ëŠ¥
 		setV1(1);
 		setV2(2);
 		setV3(3);
@@ -68,13 +68,13 @@ class Derived3 : private Base {
 public:
 	int Dv3V = 0;
 	void Dv3F() {
-		v1 = 1; //Private Á¢±ÙºÒ°¡
-		v2 = 2; //Protected Á¢±Ù°¡´É(»ó¼Ó¹Ş´Â Å¬·¡½º¿¡¼­´Â Á¢±Ù°¡´É)
-		v3 = 3; //Public Á¢±Ù°¡´É
+		v1 = 1; //Private ì ‘ê·¼ë¶ˆê°€
+		v2 = 2; //Protected ì ‘ê·¼ê°€ëŠ¥(ìƒì†ë°›ëŠ” í´ë˜ìŠ¤ì—ì„œëŠ” ì ‘ê·¼ê°€ëŠ¥)
+		v3 = 3; //Public ì ‘ê·¼ê°€ëŠ¥
 
 		getV1();
 		getV2();
-		getV3(); // Á¢±ÙÀÚ¿Í È£ÃâÀÚ´Â publicÀ¸·Î ¼±¾ğµÇ¾îÀÖ±â ¶§¹®¿¡ Á¢±Ù°¡´É
+		getV3(); // ì ‘ê·¼ìì™€ í˜¸ì¶œìëŠ” publicìœ¼ë¡œ ì„ ì–¸ë˜ì–´ìˆê¸° ë•Œë¬¸ì— ì ‘ê·¼ê°€ëŠ¥
 		setV1(1);
 		setV2(2);
 		setV3(3);
@@ -85,20 +85,20 @@ public:
 int main(int argc, char const* argv[])
 {
 	Derived1 Dv1;
-	Derived2 Dv2; //°´Ã¼ »ı¼º¿¡´Â ¹®Á¦°¡ ¾øÀ½
+	Derived2 Dv2; //ê°ì²´ ìƒì„±ì—ëŠ” ë¬¸ì œê°€ ì—†ìŒ
 	Derived3 Dv3;
 
-	Dv1.getV1(); Dv1.getV2(); Dv1.getV3();   //Á¢±ÙÀÚ¿Í È£ÃâÀÚ°¡ PublicÀÌ°í Derived1ÀÇ Á¢±Ù»ó¼ÓÀÚµµ PublicÀÌ±â ¶§¹®¿¡ 
-	Dv1.setV1(1); Dv1.setV2(2); Dv1.setV3(3);//ÀüºÎ Á¢±Ù °¡´É
+	Dv1.getV1(); Dv1.getV2(); Dv1.getV3();   //ì ‘ê·¼ìì™€ í˜¸ì¶œìê°€ Publicì´ê³  Derived1ì˜ ì ‘ê·¼ìƒì†ìë„ Publicì´ê¸° ë•Œë¬¸ì— 
+	Dv1.setV1(1); Dv1.setV2(2); Dv1.setV3(3);//ì „ë¶€ ì ‘ê·¼ ê°€ëŠ¥
 
-	Dv2.getV1(); Dv2.getV2(); Dv2.getV3();   //Á¢±ÙÀÚ¿Í È£ÃâÀÚ°¡ PublicÀÌÁö¸¸ Derived2ÀÇ Á¢±Ù»ó¼ÓÀÚ´Â ProtectedÀÌ±â ¶§¹®¿¡
-	Dv2.setV1(1); Dv2.setV2(2); Dv2.setV3(3);//Á¢±Ù ºÒ°¡´É
+	Dv2.getV1(); Dv2.getV2(); Dv2.getV3();   //ì ‘ê·¼ìì™€ í˜¸ì¶œìê°€ Publicì´ì§€ë§Œ Derived2ì˜ ì ‘ê·¼ìƒì†ìëŠ” Protectedì´ê¸° ë•Œë¬¸ì—
+	Dv2.setV1(1); Dv2.setV2(2); Dv2.setV3(3);//ì ‘ê·¼ ë¶ˆê°€ëŠ¥
 
-	Dv3.getV1(); Dv3.getV2(); Dv3.getV3();   //Á¢±ÙÀÚ¿Í È£ÃâÀÚ°¡ PublicÀÌÁö¸¸ Derived3ÀÇ Á¢±Ù»ó¼ÓÀÚ´Â PrivateÀÌ±â ¶§¹®¿¡
-	Dv3.setV1(1); Dv3.setV2(2); Dv3.setV3(3);//Á¢±Ù ºÒ°¡´É
+	Dv3.getV1(); Dv3.getV2(); Dv3.getV3();   //ì ‘ê·¼ìì™€ í˜¸ì¶œìê°€ Publicì´ì§€ë§Œ Derived3ì˜ ì ‘ê·¼ìƒì†ìëŠ” Privateì´ê¸° ë•Œë¬¸ì—
+	Dv3.setV1(1); Dv3.setV2(2); Dv3.setV3(3);//ì ‘ê·¼ ë¶ˆê°€ëŠ¥
 	
 	/*
-	Question : Private¿Í ProtectedÀÇ Â÷ÀÌ?
+	Question : Privateì™€ Protectedì˜ ì°¨ì´?
 	*/
 
 }

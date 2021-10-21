@@ -17,7 +17,7 @@ public:
 	void setMonth(int m) { month = m; }
 };
 
-// Date ÀÇ °´Ã¼¸¦ ¸Å°³ º¯¼ö·Î ¹Ş¾Æ °´Ã¼ÀÇ °ª Ãâ·ÂÇÏ´Â ÇÔ¼ö 
+// Date ì˜ ê°ì²´ë¥¼ ë§¤ê°œ ë³€ìˆ˜ë¡œ ë°›ì•„ ê°ì²´ì˜ ê°’ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ 
 // void printDate(Date day) {
 //  	day.printDay();
 //  }
@@ -26,7 +26,7 @@ void printDate(Date& day) {
 	day.printDay();
 }
 
-// void printDate(Date* day){  //  ÀÌÇØ°¡ °¡´ÉÇÑ »ç¶÷Àº ±¸ÇöÇØ¼­ °ËÁõ 
+// void printDate(Date* day){  //  ì´í•´ê°€ ê°€ëŠ¥í•œ ì‚¬ëŒì€ êµ¬í˜„í•´ì„œ ê²€ì¦ 
 
 // }
 
@@ -59,18 +59,18 @@ int main(int argc, char const* argv[])
 	Date day;
 	Date today(2021, 9, 11);
 	day.printDay();
-	today.printDay();  // 2021: 9 : 11 Ãâ·Â
-	Date tmp = today.nextDay();  // °´Ã¼ º¹»ç tmp ¿¡ ÀúÀåµÈ °ª 2021. 9 .12
+	today.printDay();  // 2021: 9 : 11 ì¶œë ¥
+	Date tmp = today.nextDay();  // ê°ì²´ ë³µì‚¬ tmp ì— ì €ì¥ëœ ê°’ 2021. 9 .12
 
 	tmp.printDay(); // 2021: 9: 12
 
-	tmp = today;    // tmp ¿Í today °°Àº °ªÀ» °¡Áö°í ÀÖÀ½ 
+	tmp = today;    // tmp ì™€ today ê°™ì€ ê°’ì„ ê°€ì§€ê³  ìˆìŒ 
 	tmp.setMonth(10);
 
 	today.printDay();  // 2021: 9: 11
 	tmp.printDay();    // 2021: 10: 11 
 
-	Date& r = today;  // ÂüÁ¶ º¯¼ö 
+	Date& r = today;  // ì°¸ì¡° ë³€ìˆ˜ 
 
 	r.setMonth(12);
 	today.printDay();  // 2021: 12: 11

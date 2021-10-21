@@ -1,13 +1,13 @@
-//bind.hpp Çì´õ Import
+//bind.hpp í—¤ë” Import
 #include <boost/bind.hpp>
 #include <iostream>
 
 using std::cout;
 using std::endl;
-//bind °ü·ÃÀÌ±â ¶§¹®¿¡ ÆíÇÏ°Ô ¾²±âÀ§ÇØ¼­ bind¸¸ ³×ÀÓ½ºÆäÀÌ½º¸¦ ¼±¾ğÇØÁØ´Ù.
+//bind ê´€ë ¨ì´ê¸° ë•Œë¬¸ì— í¸í•˜ê²Œ ì“°ê¸°ìœ„í•´ì„œ bindë§Œ ë„¤ì„ìŠ¤í˜ì´ìŠ¤ë¥¼ ì„ ì–¸í•´ì¤€ë‹¤.
 using boost::bind; 
 
-//°£´ÜÇÑ ÇÔ¼ö
+//ê°„ë‹¨í•œ í•¨ìˆ˜
 int add(int a, int b) {
 	return a + b;
 }
@@ -18,16 +18,16 @@ int main() {
 	int x = 10;
 	int y = 10;
 
-	//add_5_10À» ¸¸µé¾î add(5, 10)±â´ÉÀ» ÇÏ´Â ÇÔ¼ö¸¦ Bind ½ÃÅ²´Ù.
+	//add_5_10ì„ ë§Œë“¤ì–´ add(5, 10)ê¸°ëŠ¥ì„ í•˜ëŠ” í•¨ìˆ˜ë¥¼ Bind ì‹œí‚¨ë‹¤.
 	auto add_5_10 = bind(add, 5, 10);
 
-	//add_5_10Àº add(5, 10)¸¸ »ç¿ëÇÏµµ·Ï BindµÇ¾ú´Ù.
+	//add_5_10ì€ add(5, 10)ë§Œ ì‚¬ìš©í•˜ë„ë¡ Bindë˜ì—ˆë‹¤.
 	cout << add_5_10() << endl; /* 15 */
 
-	//ÀÔ·Â Parameter ¹Ş±â
+	//ì…ë ¥ Parameter ë°›ê¸°
 	auto plus_5 = bind(add, _1, 5);
-	//_1, _2 ¿Í °°Àº Placeholder¸¦ »ç¿ëÇÏ¿© ÀÎ¼ö¸¦ ¹ŞÀ» ¼ö ÀÖ´Ù.
-	//°ªÀÌ 10ÀÎ x¿¡ 5¸¦ ´õÇÏ±â
+	//_1, _2 ì™€ ê°™ì€ Placeholderë¥¼ ì‚¬ìš©í•˜ì—¬ ì¸ìˆ˜ë¥¼ ë°›ì„ ìˆ˜ ìˆë‹¤.
+	//ê°’ì´ 10ì¸ xì— 5ë¥¼ ë”í•˜ê¸°
 	plus_5(x); /* 15 */ 
 
 	return 0;

@@ -1,22 +1,22 @@
 #include <iostream>
 using namespace std;
 
-//ÃÊ±âÈ­ ¸®½ºÆ® ¹Ì»ç¿ë
+//ì´ˆê¸°í™” ë¦¬ìŠ¤íŠ¸ ë¯¸ì‚¬ìš©
 class Car
 {
 	int speed;
 public:
 	Car() {};
-	//ÀÌ¹ø¿¡´Â ÀÎ¼ö·Î ¹ÞÀº °ªÀ» º¹»çÇÏ¿© speed¿¡ ÇÒ´çÀ» ÇØÁØ´Ù.
+	//ì´ë²ˆì—ëŠ” ì¸ìˆ˜ë¡œ ë°›ì€ ê°’ì„ ë³µì‚¬í•˜ì—¬ speedì— í• ë‹¹ì„ í•´ì¤€ë‹¤.
 	Car(int s) { speed = s; };
-	//ÀÌ¹ø ¿¹½Ã¿¡´Â ¾øÁö¸¸ ÀÌ·± ¹æ½ÄÀ» ¾²¸é ¾ÈµÇ´Â °æ¿ì°¡ ÀÖ´Ù.
-	//¹Ù·Î ¼±¾ð°ú µ¿½Ã¿¡ ÃÊ±âÈ­¸¦ ÇØ¾ßÇÏ´Â µ¥ÀÌÅÍµéÀÎµ¥ const ¹× ÂüÁ¶º¯¼ö°¡ ÀÖ´Ù.
-	//ÀÌ µÎ°¡Áö¸¦ ÀÔ·ÂÀ» ¹Þ¾Æ ÃÊ±âÈ­¸¦ ÇÏ±â À§ÇØ¼­´Â ÃÊ±âÈ­ ¸®½ºÆ®¸¦ »ç¿ëÇØ¾ßÇÑ´Ù.
+	//ì´ë²ˆ ì˜ˆì‹œì—ëŠ” ì—†ì§€ë§Œ ì´ëŸ° ë°©ì‹ì„ ì“°ë©´ ì•ˆë˜ëŠ” ê²½ìš°ê°€ ìžˆë‹¤.
+	//ë°”ë¡œ ì„ ì–¸ê³¼ ë™ì‹œì— ì´ˆê¸°í™”ë¥¼ í•´ì•¼í•˜ëŠ” ë°ì´í„°ë“¤ì¸ë° const ë° ì°¸ì¡°ë³€ìˆ˜ê°€ ìžˆë‹¤.
+	//ì´ ë‘ê°€ì§€ë¥¼ ìž…ë ¥ì„ ë°›ì•„ ì´ˆê¸°í™”ë¥¼ í•˜ê¸° ìœ„í•´ì„œëŠ” ì´ˆê¸°í™” ë¦¬ìŠ¤íŠ¸ë¥¼ ì‚¬ìš©í•´ì•¼í•œë‹¤.
 	void Accelerate() {
 		speed++;
 	}
-	//ÀÌ¹ø¿¡´Â ÃÊ±âÈ­¸®½ºÆ®·Î ¸â¹öº¯¼ö ÃÊ±âÈ­¸¦ ÇÏÁö ¾Ê¾ÒÀ¸¹Ç·Î
-	//speed¸¦ ¼öÁ¤, ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö¸¦ ¸¸µé¾îÁØ´Ù.
+	//ì´ë²ˆì—ëŠ” ì´ˆê¸°í™”ë¦¬ìŠ¤íŠ¸ë¡œ ë©¤ë²„ë³€ìˆ˜ ì´ˆê¸°í™”ë¥¼ í•˜ì§€ ì•Šì•˜ìœ¼ë¯€ë¡œ
+	//speedë¥¼ ìˆ˜ì •, ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ë¥¼ ë§Œë“¤ì–´ì¤€ë‹¤.
 	int SpeedValue(int amount = 0, bool isChange = false) {
 		if (isChange) {
 			speed = amount;
@@ -30,8 +30,8 @@ class SportCar : public Car
 {
 	bool turbo;
 public:
-	//CarÀÇ »ý¼ºÀÚ´Â ÀÌ¹Ì ½ÇÇàÀÌ ³¡³µ±â ¶§¹®¿¡ È£Ãâ ÇÒ ¼ö ¾ø´Ù.
-	//±×·¸±â ¶§¹®¿¡ SpeedValue()·Î Á÷Á¢ ÇÒ´çÀ» ÇØ Áà¾ßÇÑ´Ù.
+	//Carì˜ ìƒì„±ìžëŠ” ì´ë¯¸ ì‹¤í–‰ì´ ëë‚¬ê¸° ë•Œë¬¸ì— í˜¸ì¶œ í•  ìˆ˜ ì—†ë‹¤.
+	//ê·¸ë ‡ê¸° ë•Œë¬¸ì— SpeedValue()ë¡œ ì§ì ‘ í• ë‹¹ì„ í•´ ì¤˜ì•¼í•œë‹¤.
 	SportCar(int s, bool t) {
 		SpeedValue(s, 1);
 		turbo = t;
@@ -47,7 +47,7 @@ public:
 
 int main(int argc, char const* argv[])
 {
-	//Á¤»óÀûÀ¸·Î ÀÛµ¿ ÇÑ´Ù.
+	//ì •ìƒì ìœ¼ë¡œ ìž‘ë™ í•œë‹¤.
 	SportCar MyCar(0, true);
 	cout << "NOW SPEED : " << MyCar.SpeedValue() << endl;
 	MyCar.Accelerate();

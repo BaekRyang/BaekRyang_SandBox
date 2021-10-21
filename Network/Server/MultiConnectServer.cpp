@@ -15,51 +15,51 @@ int main() {
 
 	WSADATA wsa;
 
-	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ÃÊ±âÈ­
+	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ì´ˆê¸°í™”
 		err_display("WSAStartup");
 		return -1;
 	}
 
-	//¼ÒÄÏ »ı¼º
+	//ì†Œì¼“ ìƒì„±
 	SOCKET s_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP); //Server Socket
 	if (s_sock == INVALID_SOCKET) {
 		err_display("socket()");
 		return -1;
 	}
-	//bind() : LocalAddress(IP ADDR + Port NUM) + Socket ÀÇ Association
-	//bind°¡ ÇÊ¿ä·Î ÇÏ´Â Parameter = Socket Descripter, Local Address(SOCKADDR_IN), Size
+	//bind() : LocalAddress(IP ADDR + Port NUM) + Socket ì˜ Association
+	//bindê°€ í•„ìš”ë¡œ í•˜ëŠ” Parameter = Socket Descripter, Local Address(SOCKADDR_IN), Size
 
 	SOCKADDR_IN saddr; //Local Address
 	saddr.sin_family = AF_INET;
 	saddr.sin_port = htons(8000);
-	saddr.sin_addr.s_addr = htonl(INADDR_ANY); //ÀÌ ÄÄÇ»ÅÍ¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÇÇ¸¦ ÀÚµ¿À¸·Î µî·Ï
+	saddr.sin_addr.s_addr = htonl(INADDR_ANY); //ì´ ì»´í“¨í„°ì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì•„ì´í”¼ë¥¼ ìë™ìœ¼ë¡œ ë“±ë¡
 
 	if (bind(s_sock, (SOCKADDR*)&saddr, sizeof(saddr))) {
 		err_display("bind()");
 		return -1;
 	}
 
-	//Listen : ¼ÒÄÏÀ» Listen»óÅÂ·Î ¸¸µé°í, µ¿½Ã¿¡ Listen Buffer(Wait Buffer)¸¦ »ı¼ºÇÑ´Ù.
-	if (listen(s_sock, SOMAXCONN/*ÃÖ´ë°ªÀÇ Buffer¸¦ ¸¸µç´Ù*/)) {
+	//Listen : ì†Œì¼“ì„ Listenìƒíƒœë¡œ ë§Œë“¤ê³ , ë™ì‹œì— Listen Buffer(Wait Buffer)ë¥¼ ìƒì„±í•œë‹¤.
+	if (listen(s_sock, SOMAXCONN/*ìµœëŒ€ê°’ì˜ Bufferë¥¼ ë§Œë“ ë‹¤*/)) {
 		err_display("listen()");
 		return -1;
 	}
 
-	SOCKADDR_IN caddr; //Å¬¶óÀÌ¾ğÆ®ÀÇ Á¤º¸¸¦ ÀúÀåÇÒ °ø°£
-	int namelen = sizeof(caddr); //accept()ÀÇ 3¹øÂ°  Parameter
+	SOCKADDR_IN caddr; //í´ë¼ì´ì–¸íŠ¸ì˜ ì •ë³´ë¥¼ ì €ì¥í•  ê³µê°„
+	int namelen = sizeof(caddr); //accept()ì˜ 3ë²ˆì§¸  Parameter
 	 
 	HANDLE th;
-	while (1) { //¹«ÇÑÈ÷ ¼Û ¼ö½ÅÀ» ÇÒ¶§´Â ¹«ÇÑ·çÇÁ »ç¿ë
+	while (1) { //ë¬´í•œíˆ ì†¡ ìˆ˜ì‹ ì„ í• ë•ŒëŠ” ë¬´í•œë£¨í”„ ì‚¬ìš©
 		cout << "Waiting for connection....." << endl;
         /*                       IN            OUT         IN/OUT    */
-		SOCKET c_sock = accept(s_sock, (SOCKADDR*)&caddr, &namelen); // c_socketÀº caddr¿Í ¿¬°áÇÏ±â À§ÇÑ Àü¿ë ¼ÒÄÏÀÓ
+		SOCKET c_sock = accept(s_sock, (SOCKADDR*)&caddr, &namelen); // c_socketì€ caddrì™€ ì—°ê²°í•˜ê¸° ìœ„í•œ ì „ìš© ì†Œì¼“ì„
 		if (c_sock == INVALID_SOCKET) {
 			err_display("accept()");
 			return -1;
 		}
 		cout << "Connected!" << endl;
 
-		//Thread »ı¼º
+		//Thread ìƒì„±
 		th = (HANDLE)_beginthreadex(NULL, 0, &echo_server, (LPVOID)c_sock, 0, NULL);
 	}
 		closesocket(s_sock);
@@ -98,20 +98,20 @@ unsigned __stdcall echo_server(LPVOID _input) {
 	cout << "Server connected by ";
 	Print_IP(&c_addr.sin_addr);
 	while (1) {
-		//¼ö½Å
-		recvlen = recv(c_sock, buf, 80, 0); //Á¤»óÀûÀÎ °æ¿ì¿¡´Â recvlen¿¡ ¼ö½ÅµÈ ¹ÙÀÌÆ® ¼ö°¡ ÀúÀåµÊ. ¸¸¾à 0ÀÏ°æ¿ì´Â Á¤»óÀûÀÎ Á¾·á
-		if (recvlen == 0 || recvlen == SOCKET_ERROR) { //Á¤»óÀû, ºñÁ¤»óÀû Á¾·á°¡ »ı±â¸é breakÇÔ
+		//ìˆ˜ì‹ 
+		recvlen = recv(c_sock, buf, 80, 0); //ì •ìƒì ì¸ ê²½ìš°ì—ëŠ” recvlenì— ìˆ˜ì‹ ëœ ë°”ì´íŠ¸ ìˆ˜ê°€ ì €ì¥ë¨. ë§Œì•½ 0ì¼ê²½ìš°ëŠ” ì •ìƒì ì¸ ì¢…ë£Œ
+		if (recvlen == 0 || recvlen == SOCKET_ERROR) { //ì •ìƒì , ë¹„ì •ìƒì  ì¢…ë£Œê°€ ìƒê¸°ë©´ breakí•¨
 			cout << "Client connection close case" << endl;
 			closesocket(c_sock);
 			break;
 		}
 
-		//¼ö½Å µ¥ÀÌÅÍ¸¦ È­¸éÀÇ Ãâ·Â
-			//¼ö½Å µ¥ÀÌÅÍ¸¦ ¹®ÀÚ¿­·Î ¸¸µé±â À§ÇØ °­Á¦ÀûÀ¸·Î ¸¶Áö¸·¿¡ NULL ¹®ÀÚ ÀÔ·Â
+		//ìˆ˜ì‹  ë°ì´í„°ë¥¼ í™”ë©´ì˜ ì¶œë ¥
+			//ìˆ˜ì‹  ë°ì´í„°ë¥¼ ë¬¸ìì—´ë¡œ ë§Œë“¤ê¸° ìœ„í•´ ê°•ì œì ìœ¼ë¡œ ë§ˆì§€ë§‰ì— NULL ë¬¸ì ì…ë ¥
 		buf[recvlen] = '\0';
 		cout << "From client : " << buf << endl;
 
-		//¼ö½Å µ¥ÀÌÅÍ¸¦ Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¼Û½Å
+		//ìˆ˜ì‹  ë°ì´í„°ë¥¼ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì†¡ì‹ 
 		send(c_sock, buf, recvlen, 0);
 	}
 	return 0;

@@ -18,16 +18,16 @@ int main() {
 		return -1;
 	}
 
-	////IPÁÖ¼Ò, Æ÷Æ® ¹øÈ£¸¦ »ı¼º -> ¼ÒÄÏ APIÇÔ¼ö¿¡ Àü´ŞÇÏ±â À§ÇØ
-	////1. SOCKADDR_IN Å¸ÀÔÀÇ ¸Ş¸ğ¸® »ı¼º
+	////IPì£¼ì†Œ, í¬íŠ¸ ë²ˆí˜¸ë¥¼ ìƒì„± -> ì†Œì¼“ APIí•¨ìˆ˜ì— ì „ë‹¬í•˜ê¸° ìœ„í•´
+	////1. SOCKADDR_IN íƒ€ì…ì˜ ë©”ëª¨ë¦¬ ìƒì„±
 	//SOCKADDR_IN saddr;
 
-	////2. »ı¼º ¸Ş¸ğ¸®¿¡ IPÁÖ¼Ò, Æ÷Æ®¹øÈ£, ÁÖ¼ÒÃ¼°è¸¦ Ã¤¿ö³Ö´Â´Ù.
-	////2.1 ÁÖ¼Ò Ã¼°è ÀÔ·Â(IPV4, Host byte order)
+	////2. ìƒì„± ë©”ëª¨ë¦¬ì— IPì£¼ì†Œ, í¬íŠ¸ë²ˆí˜¸, ì£¼ì†Œì²´ê³„ë¥¼ ì±„ì›Œë„£ëŠ”ë‹¤.
+	////2.1 ì£¼ì†Œ ì²´ê³„ ì…ë ¥(IPV4, Host byte order)
 	//saddr.sin_family = AF_INET;
-	////2.2 Æ÷Æ®¹øÈ£ ÀÔ·Â(Network Byte order)
+	////2.2 í¬íŠ¸ë²ˆí˜¸ ì…ë ¥(Network Byte order)
 	//saddr.sin_port = htons(8000);
-	////2.3 IPÁÖ¼Ò ÀÔ·Â : InetPton() »ç¿ë
+	////2.3 IPì£¼ì†Œ ì…ë ¥ : InetPton() ì‚¬ìš©
 	//if (InetPton(AF_INET, "11.22.33.44", &saddr.sin_addr) != 1) {
 	//	err_display("InetPton");
 	//	return -1;
@@ -42,7 +42,7 @@ int main() {
 
 	//cout << "IP addr : " << buf << endl;
 
-	//Hint¸¦ ÁØ´Ù(¹İµå½Ã 0, ¶Ç´Â NULL ·Î ÃÊ±âÈ­
+	//Hintë¥¼ ì¤€ë‹¤(ë°˜ë“œì‹œ 0, ë˜ëŠ” NULL ë¡œ ì´ˆê¸°í™”
 	ADDRINFOA hints;
 	ZeroMemory(&hints, sizeof(hints));
 
@@ -51,7 +51,7 @@ int main() {
 	hints.ai_protocol = IPPROTO_TCP;
 	hints.ai_flags = AI_CANONNAME;
 
-	//Result¸¦ ¹Ş¾Æ¾ß ÇÒ Æ÷ÀÎÅÍ¸¦ »ı¼ºÇØ¾ßÇÔ
+	//Resultë¥¼ ë°›ì•„ì•¼ í•  í¬ì¸í„°ë¥¼ ìƒì„±í•´ì•¼í•¨
 	PADDRINFOA result = NULL;
 
 	if (getaddrinfo("baekryang.live", "http", & hints, &result)) {
@@ -59,7 +59,7 @@ int main() {
 		return -1;
 	}
 
-	//Æ÷ÀÎÅÍ º¯¼ö »ı¼º
+	//í¬ì¸í„° ë³€ìˆ˜ ìƒì„±
 	PADDRINFOA ptr = NULL;
 	SOCKADDR_IN* qtr = NULL;
 	for (ptr = result; ptr != NULL; ptr = ptr->ai_next) {

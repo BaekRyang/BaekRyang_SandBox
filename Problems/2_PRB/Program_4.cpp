@@ -17,8 +17,8 @@ public:
 		return true;
 	}
 
-	Character() { cout << "»ý¼ºÀÚ : Character »ý¼ºµÊ" << endl; }
-	~Character() { cout << "¼Ò¸êÀÚ : Character ¼Ò¸êµÊ" << endl; }
+	Character() { cout << "ìƒì„±ìž : Character ìƒì„±ë¨" << endl; }
+	~Character() { cout << "ì†Œë©¸ìž : Character ì†Œë©¸ë¨" << endl; }
 };
 
 
@@ -26,16 +26,16 @@ int main() {
 	Character* newCha = new Character;
 
 	cout << newCha << endl;
-	//Á¤ÀûÇÒ´ç°ú´Â ´Ù¸£°Ô ->¸¦ »ç¿ëÇØ¼­ ÇÔ¼ö¿Í º¯¼ö¿¡ Á¢±ÙÇÑ´Ù.
+	//ì •ì í• ë‹¹ê³¼ëŠ” ë‹¤ë¥´ê²Œ ->ë¥¼ ì‚¬ìš©í•´ì„œ í•¨ìˆ˜ì™€ ë³€ìˆ˜ì— ì ‘ê·¼í•œë‹¤.
 	cout << newCha->Attack() << endl;
 	newCha->afk = true;
 
-	//newCha¸¦ ÇØÁ¦ÇÑ´Ù.
+	//newChaë¥¼ í•´ì œí•œë‹¤.
 	delete(newCha);
 	/*
-	newChaÀÇ ¸Þ¸ð¸®¸¦ ÇØÁ¦ÇÏ¿´±â ¶§¹®¿¡
-	"ÃÊ±âÈ­ µÇÁö¾ÊÀº ¸Þ¸ð¸® 'newCha'¸¦ »ç¿ëÇÏ°í ÀÖ½À´Ï´Ù."
-	¶ó´Â °æ°í°¡ ¹ß»ýÇÑ´Ù.
+	newChaì˜ ë©”ëª¨ë¦¬ë¥¼ í•´ì œí•˜ì˜€ê¸° ë•Œë¬¸ì—
+	"ì´ˆê¸°í™” ë˜ì§€ì•Šì€ ë©”ëª¨ë¦¬ 'newCha'ë¥¼ ì‚¬ìš©í•˜ê³  ìžˆìŠµë‹ˆë‹¤."
+	ë¼ëŠ” ê²½ê³ ê°€ ë°œìƒí•œë‹¤.
 	*/
 	cout << newCha << endl;
 

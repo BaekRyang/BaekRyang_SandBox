@@ -13,12 +13,12 @@ int main() {
 
 	WSADATA wsa;
 
-	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ÃÊ±âÈ­
+	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ì´ˆê¸°í™”
 		err_display("WSAStartup");
 		return -1;
 	}
 
-	//¼ÒÄÏ »ı¼º
+	//ì†Œì¼“ ìƒì„±
 	SOCKET s_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); //Server Socket
 	if (s_sock == INVALID_SOCKET) {
 		err_display("socket()");
@@ -28,34 +28,34 @@ int main() {
 	SOCKADDR_IN saddr; //Local Address
 	saddr.sin_family = AF_INET;
 	saddr.sin_port = htons(8000);
-	saddr.sin_addr.s_addr = htonl(INADDR_ANY); //ÀÌ ÄÄÇ»ÅÍ¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÇÇ¸¦ ÀÚµ¿À¸·Î µî·Ï
+	saddr.sin_addr.s_addr = htonl(INADDR_ANY); //ì´ ì»´í“¨í„°ì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì•„ì´í”¼ë¥¼ ìë™ìœ¼ë¡œ ë“±ë¡
 
 	if (bind(s_sock, (SOCKADDR*)&saddr, sizeof(saddr))) {
 		err_display("bind()");
 		return -1;
 	}
-	//bind() : LocalAddress(IP ADDR + Port NUM) + Socket ÀÇ Association
-	//bind°¡ ÇÊ¿ä·Î ÇÏ´Â Parameter = Socket Descripter, Local Address(SOCKADDR_IN), Size
+	//bind() : LocalAddress(IP ADDR + Port NUM) + Socket ì˜ Association
+	//bindê°€ í•„ìš”ë¡œ í•˜ëŠ” Parameter = Socket Descripter, Local Address(SOCKADDR_IN), Size
 
-	SOCKADDR_IN caddr; //Å¬¶óÀÌ¾ğÆ®ÀÇ Á¤º¸¸¦ ÀúÀåÇÒ °ø°£
-	int namelen = sizeof(caddr); //recvformÀÇ ¸¶Áö¸· Parameter
+	SOCKADDR_IN caddr; //í´ë¼ì´ì–¸íŠ¸ì˜ ì •ë³´ë¥¼ ì €ì¥í•  ê³µê°„
+	int namelen = sizeof(caddr); //recvformì˜ ë§ˆì§€ë§‰ Parameter
 
 	char buf[80];
 	int recvlen;
 	while (1) {
-		//¼ö½Å
-		recvlen = recvfrom(s_sock, buf, 80, 0, (SOCKADDR *)&caddr, &namelen); //Á¤»óÀûÀÎ °æ¿ì¿¡´Â recvlen¿¡ ¼ö½ÅµÈ ¹ÙÀÌÆ® ¼ö°¡ ÀúÀåµÊ. ¸¸¾à 0ÀÏ°æ¿ì´Â Á¤»óÀûÀÎ Á¾·á
-		if (recvlen == 0 || recvlen == SOCKET_ERROR) { //Á¤»óÀû, ºñÁ¤»óÀû Á¾·á°¡ »ı±â¸é breakÇÔ
+		//ìˆ˜ì‹ 
+		recvlen = recvfrom(s_sock, buf, 80, 0, (SOCKADDR *)&caddr, &namelen); //ì •ìƒì ì¸ ê²½ìš°ì—ëŠ” recvlenì— ìˆ˜ì‹ ëœ ë°”ì´íŠ¸ ìˆ˜ê°€ ì €ì¥ë¨. ë§Œì•½ 0ì¼ê²½ìš°ëŠ” ì •ìƒì ì¸ ì¢…ë£Œ
+		if (recvlen == 0 || recvlen == SOCKET_ERROR) { //ì •ìƒì , ë¹„ì •ìƒì  ì¢…ë£Œê°€ ìƒê¸°ë©´ breakí•¨
 			cout << "Client connection close case" << endl;
 			break;
 		}
 
-		//¼ö½Å µ¥ÀÌÅÍ¸¦ È­¸éÀÇ Ãâ·Â
-			//¼ö½Å µ¥ÀÌÅÍ¸¦ ¹®ÀÚ¿­·Î ¸¸µé±â À§ÇØ °­Á¦ÀûÀ¸·Î ¸¶Áö¸·¿¡ NULL ¹®ÀÚ ÀÔ·Â
+		//ìˆ˜ì‹  ë°ì´í„°ë¥¼ í™”ë©´ì˜ ì¶œë ¥
+			//ìˆ˜ì‹  ë°ì´í„°ë¥¼ ë¬¸ìì—´ë¡œ ë§Œë“¤ê¸° ìœ„í•´ ê°•ì œì ìœ¼ë¡œ ë§ˆì§€ë§‰ì— NULL ë¬¸ì ì…ë ¥
 		buf[recvlen] = '\0';
 		cout << "From client : " << buf << endl;
 
-		//¼ö½Å µ¥ÀÌÅÍ¸¦ Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¼Û½Å
+		//ìˆ˜ì‹  ë°ì´í„°ë¥¼ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì†¡ì‹ 
 		sendto(s_sock, buf, recvlen, 0, (SOCKADDR *)&caddr, namelen);
 	}
 	//}

@@ -6,7 +6,7 @@ using std::cout;
 using std::endl;
 using boost::bind;
 
-//°£´ÜÇÑ ÇÔ¼ö
+//ê°„ë‹¨í•œ í•¨ìˆ˜
 int add(int a, int b) {
 	return a + b;
 }
@@ -18,23 +18,23 @@ int main() {
 	int y = 10;
 
 	auto add_5_10 = bind(add, 5, 10);
-	/* Bind_1°ú °°Àº ¼Ò½º ÄÚµå »ç¿ë*/
+	/* Bind_1ê³¼ ê°™ì€ ì†ŒìŠ¤ ì½”ë“œ ì‚¬ìš©*/
 
-	//add_5_10Àº auto¶ó´Â ÀÚ·áÇüÀ» »ç¿ëÇÏ´Âµ¥ ½ÇÁ¦ ÀÚ·áÇüÀ» ¾Ë¾Æº¸±â·ÎÇÔ
+	//add_5_10ì€ autoë¼ëŠ” ìë£Œí˜•ì„ ì‚¬ìš©í•˜ëŠ”ë° ì‹¤ì œ ìë£Œí˜•ì„ ì•Œì•„ë³´ê¸°ë¡œí•¨
 
-	//ÀÚ·áÇüÀ» ¾Ë¾Æº¼¶§´Â typeid().name()À» »ç¿ë
+	//ìë£Œí˜•ì„ ì•Œì•„ë³¼ë•ŒëŠ” typeid().name()ì„ ì‚¬ìš©
 	cout << typeid(add_5_10).name() << endl;
 
-	/* °á°ú */
+	/* ê²°ê³¼ */
 	// class boost::_bi::bind_t<int,int (__cdecl*)(int,int),class boost::_bi::list2<class boost::_bi::value<int>,class boost::_bi::value<int> > >
 
 
 	cout << sizeof(add_5_10) << endl;
-	/* °á°ú : 12*/
-	//Å©±â´Â 12 byte¸¦ Â÷ÁöÇÔ
-	//addÇÔ¼öÀÇ °æ¿ì¿¡´Â 4 byte Â÷Áö
-	//ÀÚ·áÇüÀ» long longÀ¸·Î ¹Ù²Ù¸é 8 byte, short·Î ¹Ù²Ù¸é 2 byte¸¦ Â÷Áö
-	//ÀÚ·áÇüÀÇ Å©±â¸¦ µû¶ó°¡´Â °ÍÀ» ¾Ë ¼ö ÀÖÀ½
+	/* ê²°ê³¼ : 12*/
+	//í¬ê¸°ëŠ” 12 byteë¥¼ ì°¨ì§€í•¨
+	//addí•¨ìˆ˜ì˜ ê²½ìš°ì—ëŠ” 4 byte ì°¨ì§€
+	//ìë£Œí˜•ì„ long longìœ¼ë¡œ ë°”ê¾¸ë©´ 8 byte, shortë¡œ ë°”ê¾¸ë©´ 2 byteë¥¼ ì°¨ì§€
+	//ìë£Œí˜•ì˜ í¬ê¸°ë¥¼ ë”°ë¼ê°€ëŠ” ê²ƒì„ ì•Œ ìˆ˜ ìˆìŒ
 
 	return 0;
 }

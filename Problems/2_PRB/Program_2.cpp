@@ -2,7 +2,7 @@
 
 using namespace std;
 
-//Á¤¼öÇü ¹è¿­À» °®°íÀÖ´Â Å¬·¡½º
+//ì •ìˆ˜í˜• ë°°ì—´ì„ ê°–ê³ ìˆëŠ” í´ë˜ìŠ¤
 class IntegerArr {
 private:
 	int value[10] = { 0 };
@@ -21,7 +21,7 @@ public:
 	~IntegerArr() {}
 };
 
-//½Ç¼öÇü ¹è¿­À» °®°íÀÖ´Â Å¬·¡½º
+//ì‹¤ìˆ˜í˜• ë°°ì—´ì„ ê°–ê³ ìˆëŠ” í´ë˜ìŠ¤
 class RealArr {
 private:
 	float value[10] = { 0 };
@@ -40,12 +40,12 @@ public:
 	~RealArr() {}
 };
 
-//¹®ÀÚÇü ¹è¿­À» °®°íÀÖ´Â Å¬·¡½º
+//ë¬¸ìí˜• ë°°ì—´ì„ ê°–ê³ ìˆëŠ” í´ë˜ìŠ¤
 class CharArr {
 private:
 	char value[10] = { 0 };
 public:
-	//¹®ÀÚ¸¦ ÀÎ¼ö·Î ¹Ş¾ÆµéÀÌ±â À§ÇØ "const char *"  »ç¿ë
+	//ë¬¸ìë¥¼ ì¸ìˆ˜ë¡œ ë°›ì•„ë“¤ì´ê¸° ìœ„í•´ "const char *"  ì‚¬ìš©
 	void SetValue(const char *_value, int _order) {
 		this->value[_order] = *_value;
 	}
@@ -59,7 +59,7 @@ public:
 	~CharArr() {}
 };
 
-//¸¸µé¾îÁø Å¬·¡½º È®ÀÎ
+//ë§Œë“¤ì–´ì§„ í´ë˜ìŠ¤ í™•ì¸
 int main() {
 	IntegerArr IA;
 	IA.SetValue(10, 1);

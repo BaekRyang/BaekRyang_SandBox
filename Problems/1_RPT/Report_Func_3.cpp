@@ -2,13 +2,13 @@
 
 using namespace std;
 
-// °´Ã¼ÀÇ ÂüÁ¶ÀÚ¸¦ ÇÔ¼öÀÇ ¸Å°³º¯¼ö·Î Àü´ÞÀÌ °¡´ÉÇÑ°¡
+// ê°ì²´ì˜ ì°¸ì¡°ìžë¥¼ í•¨ìˆ˜ì˜ ë§¤ê°œë³€ìˆ˜ë¡œ ì „ë‹¬ì´ ê°€ëŠ¥í•œê°€
 
-//Æ÷ÀÎÅÍ¸¦ ÀÌ¿ëÇÏÁö ¾Ê°íµµ ¸Å°³º¯¼ö·Î ¹ÞÀº º¯¼öÀÇ °ªÀ» ¹Ù²Ü ¼ö ÀÖ´Â ¹æ¹ýÀÌ ¶Ç ÀÖ´Ù.
-//ÂüÁ¶º¯¼ö¸¦ ÇÔ¼ö¿¡ ¸Å°³º¯¼ö·Î Àü´ÞÇÏ´Â °Í ÀÎµ¥,
+//í¬ì¸í„°ë¥¼ ì´ìš©í•˜ì§€ ì•Šê³ ë„ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì€ ë³€ìˆ˜ì˜ ê°’ì„ ë°”ê¿€ ìˆ˜ ìžˆëŠ” ë°©ë²•ì´ ë˜ ìžˆë‹¤.
+//ì°¸ì¡°ë³€ìˆ˜ë¥¼ í•¨ìˆ˜ì— ë§¤ê°œë³€ìˆ˜ë¡œ ì „ë‹¬í•˜ëŠ” ê²ƒ ì¸ë°,
 
-//ÇÔ¼öÀÇ ¸ð¾çÀº ÀÏ¹ÝÀûÀ¸·Î ¸¸µéÁö¸¸ "int&"Ã³·³ ÂüÁ¶º¯¼ö¸¦ ¹ÞÀ½À» Ç¥½ÃÇÑ´Ù.
-//ÀÌ·¸°Ô ÇÑ´Ù¸é °ªÀ» º¹»çÇÏÁö ¾ÊÀ¸¹Ç·Î Call by Referance¶ó°í ÇÑ´Ù.
+//í•¨ìˆ˜ì˜ ëª¨ì–‘ì€ ì¼ë°˜ì ìœ¼ë¡œ ë§Œë“¤ì§€ë§Œ "int&"ì²˜ëŸ¼ ì°¸ì¡°ë³€ìˆ˜ë¥¼ ë°›ìŒì„ í‘œì‹œí•œë‹¤.
+//ì´ë ‡ê²Œ í•œë‹¤ë©´ ê°’ì„ ë³µì‚¬í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ Call by Referanceë¼ê³  í•œë‹¤.
 void EscalateNum(int& _input) {
 	cout << "Func : " << _input << endl;
 	_input++;
@@ -21,7 +21,7 @@ int main() {
 
 	cout << value << endl;
 	EscalateNum(refValue);
-	//refValue¸¦ ¸Å°³º¯¼ö·Î ³Ñ°ÜÁÖ¾î °ªÀ» »ó½Â½ÃÄÑµµ value°ªÀÌ ¹Ù²ï´Ù.
+	//refValueë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ë„˜ê²¨ì£¼ì–´ ê°’ì„ ìƒìŠ¹ì‹œì¼œë„ valueê°’ì´ ë°”ë€ë‹¤.
 	cout << value << endl;
 
 	return 0;

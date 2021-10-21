@@ -13,32 +13,35 @@ int main() {
 
 	WSADATA wsa;
 
-	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ÃÊ±âÈ­
+	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ì´ˆê¸°í™”
 		err_display("WSAStartup");
 		return -1;
 	}
 
-	//¼ÒÄÏ »ı¼º
-	SOCKET s_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); //Server Socket
-	if (s_sock == INVALID_SOCKET) {
+	//ì†Œì¼“ ìƒì„±
+	SOCKET server_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); //Server Socket
+	if (server_socket == INVALID_SOCKET) {
 		err_display("socket()");
 		return -1;
 	}
 
-	SOCKADDR_IN saddr; //Local Address
-	saddr.sin_family = AF_INET;
-	saddr.sin_port = htons(8000);
-	saddr.sin_addr.s_addr = htonl(INADDR_ANY); //ÀÌ ÄÄÇ»ÅÍ¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÇÇ¸¦ ÀÚµ¿À¸·Î µî·Ï
+	SOCKADDR_IN server_addr; //Local Address
+	server_addr.sin_family = AF_INET;
+	server_addr.sin_port = htons(8000);
+	server_addr.sin_addr.s_addr = htonl(INADDR_ANY); //ì´ ì»´í“¨í„°ì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì•„ì´í”¼ë¥¼ ìë™ìœ¼ë¡œ ë“±ë¡
 
-	SOCKADDR_IN caddr; //Å¬¶óÀÌ¾ğÆ®ÀÇ Á¤º¸¸¦ ÀúÀåÇÒ °ø°£
-	int namelen = sizeof(caddr); //recvformÀÇ ¸¶Áö¸· Parameter
+	SOCKADDR_IN caddr; //í´ë¼ì´ì–¸íŠ¸ì˜ ì •ë³´ë¥¼ ì €ì¥í•  ê³µê°„
+	int namelen = sizeof(caddr); //recvformì˜ ë§ˆì§€ë§‰ Parameter
 
-	ip_mreq mreq;
-	mreq.imr_interface.s_addr = htonl(INADDR_ANY);
-	InetPton(AF_INET, "236.0.0.1", &mreq.imr_multiaddr);
-	setsockopt(s_sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mreq, sizeof(mreq));
+	ip_mreq mreq; //Multicast Group ê°€ì…ì„ ìœ„í•œ ì •ë³´ë¥¼ ë‹´ì„ ë©”ëª¨ë¦¬ ìƒì„± https://docs.microsoft.com/en-us/windows/win32/api/ws2ipdef/ns-ws2ipdef-ip_mreq
+	mreq.imr_interface.s_addr = htonl(INADDR_ANY); //Receiverê°€ ì‚¬ìš©í•˜ëŠ” IP ì…ë ¥
+	InetPton(AF_INET, "236.0.0.1", &mreq.imr_multiaddr); //Multicast IPë¥¼ ì…ë ¥ - ì´ì „ì˜ Insert_IP() ê°€ì ¸ì™€ì„œ ì‚¬ìš©í•´ë„ ì¢‹ìŒ
+	if (setsockopt(server_socket, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mreq, sizeof(mreq)) == SOCKET_ERROR) {  //"236.0.0.1" Multicast Group ê°€ì…
+		err_display("Multicast ê°€ì…ì‹¤íŒ¨");
+		return -1;
+	}
 
-	if (bind(s_sock, (SOCKADDR*)&saddr, sizeof(saddr))) {
+	if (bind(server_socket, (SOCKADDR*)&server_addr, sizeof(server_addr))) { //ì†Œì¼“ê³¼ ì»´í“¨í„°ì˜ ë„¤íŠ¸ì›Œí¬ ì •ë³´ë¥¼ ë¬¶ëŠ”ë‹¤(bind). server_addrì€ Receiverì˜ adr, portì™€ ê°™ì€ ì •ë³´ê°€ ë“¤ì–´ìˆìŒ
 		err_display("bind()");
 		return -1;
 	}
@@ -46,9 +49,9 @@ int main() {
 	char buf[80];
 	int recvlen;
 	while (1) {
-		//¼ö½Å
-		recvlen = recvfrom(s_sock, buf, 80, 0, (SOCKADDR*)&caddr, &namelen); //Á¤»óÀûÀÎ °æ¿ì¿¡´Â recvlen¿¡ ¼ö½ÅµÈ ¹ÙÀÌÆ® ¼ö°¡ ÀúÀåµÊ. ¸¸¾à 0ÀÏ°æ¿ì´Â Á¤»óÀûÀÎ Á¾·á
-		if (recvlen == 0) { //Á¤»óÀû, ºñÁ¤»óÀû Á¾·á°¡ »ı±â¸é breakÇÔ
+		//ìˆ˜ì‹ 
+		recvlen = recvfrom(server_socket, buf, 80, 0, (SOCKADDR*)&caddr, &namelen); //ì •ìƒì ì¸ ê²½ìš°ì—ëŠ” recvlenì— ìˆ˜ì‹ ëœ ë°”ì´íŠ¸ ìˆ˜ê°€ ì €ì¥ë¨. ë§Œì•½ 0ì¼ê²½ìš°ëŠ” ì •ìƒì ì¸ ì¢…ë£Œ
+		if (recvlen == 0) { //ì •ìƒì , ë¹„ì •ìƒì  ì¢…ë£Œê°€ ìƒê¸°ë©´ breakí•¨
 			cout << "Client connection normal close case" << endl;
 			err_display("recvform()");
 			break;
@@ -60,14 +63,14 @@ int main() {
 		}
 
 
-		//¼ö½Å µ¥ÀÌÅÍ¸¦ È­¸éÀÇ Ãâ·Â
-		//¼ö½Å µ¥ÀÌÅÍ¸¦ ¹®ÀÚ¿­·Î ¸¸µé±â À§ÇØ °­Á¦ÀûÀ¸·Î ¸¶Áö¸·¿¡ NULL ¹®ÀÚ ÀÔ·Â
+		//ìˆ˜ì‹  ë°ì´í„°ë¥¼ í™”ë©´ì˜ ì¶œë ¥
+		//ìˆ˜ì‹  ë°ì´í„°ë¥¼ ë¬¸ìì—´ë¡œ ë§Œë“¤ê¸° ìœ„í•´ ê°•ì œì ìœ¼ë¡œ ë§ˆì§€ë§‰ì— NULL ë¬¸ì ì…ë ¥
 		buf[recvlen] = '\0';
 		cout << buf << endl;
 
 	}
 	//}
-	closesocket(s_sock);
+	closesocket(server_socket);
 
 
 	WSACleanup();

@@ -14,33 +14,32 @@ int main() {
 
 	WSADATA wsa;
 
-	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ÃÊ±âÈ­
+	if (WSAStartup(MAKEWORD(2, 2), &wsa)) { // ws2_32.dll ì´ˆê¸°í™”
 		err_display("WSAStartup");
 		return -1;
 	}
 
-	//¼ÒÄÏ »ı¼º
+	//ì†Œì¼“ ìƒì„±
 	SOCKET c_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); //Server Socket
-	if (c_sock == INVALID_SOCKET) {
+	if (c_sock == INVALID_SOCKET) {	
 		err_display("socket()");
 		return -1;
 	}
 
-	//¼ÒÄÏ ¿É¼Ç º¯°æ (BroadcastÄ³½ºÆ® Åë½ÅÀ» À§ÇØ)
-	bool bbroad = true;
-	int retval = setsockopt(c_sock, SOL_SOCKET, SO_BROADCAST, (char*)&bbroad, sizeof(bbroad));
-	if (retval == SOCKET_ERROR) {
+	//Multicast Addr("236.0.0.1") ë° Port Num ì„¤ì •
+	SOCKADDR_IN multicast_addr;
+	multicast_addr.sin_family = AF_INET;
+	Insert_IP("236.0.0.1", &multicast_addr.sin_addr); //"236.0.0.1" ì£¼ì†Œë¡œ Multicastë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ IPë¥¼ ì…ë ¥í•´ì¤€ë‹¤.
+	multicast_addr.sin_port = htons(8000);
+
+	int ttlVar = 16;
+	if (setsockopt(c_sock, IPPROTO_IP, IP_MULTICAST_TTL, (char*)&ttlVar, sizeof(ttlVar)) == SOCKET_ERROR) { //TTLì„ ttlvarì— ìˆëŠ” ê°’ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 		err_display("setsockopt()");
 		return -1;
 	}
 
-	SOCKADDR_IN multicast_addr;
-	multicast_addr.sin_family = AF_INET;
-	InetPton(AF_INET, "236.0.0.1", &multicast_addr.sin_addr);
-	multicast_addr.sin_port = htons(8000);
-
-	//¹æ¼Û¿ë ÆÄÀÏÀ» ÀĞ¾î¼­ ÇÑÁÙ¾¿ Receiver¿¡°Ô ¼Û½Å
-	//1. ÆÄÀÏÀ» ¿¬´Ù
+	//ë°©ì†¡ìš© íŒŒì¼ì„ ì½ì–´ì„œ í•œì¤„ì”© Receiverì—ê²Œ ì†¡ì‹ 
+	//1. íŒŒì¼ì„ ì—°ë‹¤
 	FILE* fptr = NULL;
 	fopen_s(&fptr, "news.txt", "r");
 	if (fptr == NULL) {
@@ -48,23 +47,21 @@ int main() {
 		return -1;
 	}
 
-	//È­¸é¿¡ µğ½ºÇÃ·¹ÀÌ
+	//í™”ë©´ì— ë””ìŠ¤í”Œë ˆì´
 	char buf[80];
 	int sendlen;
-	int recvlen;
-	int namelen = sizeof(multicast_addr);
 
 	while (1) {
-		fgets(buf, 79, fptr); //¹®ÀåÀ» ÀÔ·ÂÇÏ°í EnterÀ» ÇÏ¸é '\n'ÀÌ ºÙ°í ÀÚµ¿ÀûÀ¸·Î ¸¶Áö¸·¿¡ '\0' ÀÔ·ÂµÊ
-		sendlen = strlen(buf);
-		sendto(c_sock, buf, sendlen, 0, (SOCKADDR*)&multicast_addr, sizeof(multicast_addr));
-
-		//fileÀÇ ³¡¿¡ fptrÀÌ ÀÖÀ¸¸é Á¾·á
+		//fileì˜ ëì— fptrì´ ìˆìœ¼ë©´ ì¢…ë£Œ
 		if (feof(fptr)) {
 			sendto(c_sock, "", 0, 0, (SOCKADDR*)&multicast_addr, sizeof(multicast_addr));
+			cout << "ì „ì†¡ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
 			break;
 		}
-		Sleep(100);
+		fgets(buf, 79, fptr); //ë¬¸ì¥ì„ ì…ë ¥í•˜ê³  Enterì„ í•˜ë©´ '\n'ì´ ë¶™ê³  ìë™ì ìœ¼ë¡œ ë§ˆì§€ë§‰ì— '\0' ì…ë ¥ë¨
+		sendlen = strlen(buf);
+		sendto(c_sock, buf, sendlen, 0, (SOCKADDR*)&multicast_addr, sizeof(multicast_addr));
+		Sleep(1000);
 	}
 
 	WSACleanup();

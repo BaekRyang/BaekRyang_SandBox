@@ -1,3 +1,0 @@
-﻿  Sender.cpp
-D:\게임 네트워크 프로그래밍\Multicast\Sender\Sender.cpp(54,6): warning C4101: 'recvlen' :참조되지 않은 지역 변수입니다.
-  Sender.vcxproj -> D:\게임 네트워크 프로그래밍\Multicast\Sender\Debug\Sender.exe

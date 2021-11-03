@@ -38,4 +38,4 @@ int* i2 = any_cast<int>(&ExampleArray[1]);
 int* i3 = any_cast<int>(&ExampleArray[2]);
 ```
 위와 같이 코드를 작성한뒤 실행을 시킨 결과는 다음과 같다.
-<img src="images/pointer_cast">
+<img src="images/pointer_cast.png">

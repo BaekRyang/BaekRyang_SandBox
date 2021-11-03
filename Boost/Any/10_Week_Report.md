@@ -1,5 +1,5 @@
 ...
-'''C++
+```C++
 #include <list>
 #include <boost/any.hpp>
 
@@ -31,4 +31,4 @@ void append_nothing(many & values)
 {
     values.push_back(boost::any());
 }
-'''
+```

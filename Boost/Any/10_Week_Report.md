@@ -38,4 +38,6 @@ int* i2 = any_cast<int>(&ExampleArray[1]);
 int* i3 = any_cast<int>(&ExampleArray[2]);
 ```
 위와 같이 코드를 작성한뒤 실행을 시킨 결과는 다음과 같다.<br>
-<img src="images/pointer_cast.png">
+<img src="images/pointer_cast.png"><br>
+1번째 줄은 int형 데이터로 변환을 하였기에 값이 저장되어있는 메모리주소를 출력하였지만<br>
+이외는 NULL을 반환하였으므로 0이 출력되었다.

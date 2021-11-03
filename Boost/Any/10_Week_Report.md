@@ -1,6 +1,6 @@
-#Boost::Any Algorithm 분석
+# Boost::Any Algorithm 분석
 
-##사용방법
+## 사용방법
 
 다음은 Boost Libraries에 있는 Any의 사용법이다.
 ```C++

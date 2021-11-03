@@ -45,7 +45,7 @@ ExampleArray[0] = 23;
 ExampleArray[1] = "How old are you?";
 ExampleArray[2] = 178.7;
 ```
-순서대로 'int','string','float'형 데이터를 배열에 대입하였다.
+순서대로 `int`,`string`,`float`형 데이터를 배열에 대입하였다.
 
 ```C++
 int i = any_cast<int>(ExampleArray[0]);
@@ -58,6 +58,6 @@ int i = any_cast<int>(ExampleArray[0]);
 //ExampleArray[1] 에는 String 데이터가 들어있다.
 any_cast<int>(ExampleArray[1]);
 ```
-만약 변환할 수 없는 자료형으로 Casting을 시도할 경우 'bad_any_cast' Exception을 Throw 한다.
+만약 변환할 수 없는 자료형으로 Casting을 시도할 경우 `bad_any_cast` Exception을 Throw 한다.
 <p> src="images/bad_any_cast_exception.png </p>
 

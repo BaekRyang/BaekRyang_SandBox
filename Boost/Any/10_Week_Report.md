@@ -2,64 +2,62 @@
 
 ## 사용방법
 
-Vector를 사용하는 프로그램에서의 Any 사용
+Array를 통한 Any의 기본적인 사용
 ```C++
-#include "stdafx.h"
-#include "AnyExample.h"
- 
 #include <boost/any.hpp>
 #include <vector>
 #include <iostream>
 #include <string>
- 
-AnyExample::AnyExample()
+
+using std::cout;
+using std::endl;
+using std::string;
+using boost::any;
+using boost::any_cast;
+
+void ArrayExample()
 {
+    any ExampleArray[10];
+
+    ExampleArray[0] = 23;
+    ExampleArray[1] = "How old are you?";
+    ExampleArray[2] = 178.7;
+
+    int i = any_cast<int>(ExampleArray[0]);
+
+    cout << i << endl;
 }
- 
- 
-AnyExample::~AnyExample()
-{
-}
- 
-void AnyExample::doExample()
-{
-    std::vector<boost::any> some_values;
-    some_values.push_back(10);
-    const char* c_str = "Hello there!";
-    some_values.push_back(c_str);
-    some_values.push_back(std::string("Wow!"));
-    //vector 컨테이너 확인
-    if (some_values.empty())
-    {
-        std::cout << "boost any vector is empty" << std::endl;
-        return;
-    }
-    else
-    {
-        std::cout << "boost any vector is vaild" << std::endl;
-    }
- 
-    std::string& s = boost::any_cast<std::string&>(some_values.back());
-    s += " That is great!\n";
-    std::cout << s << std::endl;
- 
-    // 명시적으로 정확한 캐스팅이 필요하다
-    boost::any var2 = some_values.at(1);
-    const char* s2 = boost::any_cast<const char*>(var2);
-    std::cout << s2 << std::endl;
- 
-    boost::any var3 = some_values.at(0);
-    int s3 = boost::any_cast<int>(var3);
-    std::cout << s3 << std::endl;
- 
-    boost::any variable(std::string("Hello world!"));
-    // 변수의 실제 값이 std::string이 아니라면
-    // 아래 메소드가 boost::bad_any_cast 예외를 던질 수도 있다    
-    std::string s11 = boost::any_cast<std::string>(variable);
-    std::cout << s11 << std::endl;
-    // 변수의 실제 값이 std::string이 아니라면    
-    // NULL 포인터 반환
-    std::string* s12 = boost::any_cast<std::string>(&variable);
-    std::cout << (*s12) << std::endl;
+
+int main() {
+    ArrayExample();
+
+    return 0;
 }
 ```
+
+'''C++
+any ExampleArray[10];
+'''
+boost:any를 자료형으로 하여 Container, 또는 배열을 선언할 수 있다.
+
+'''C++
+ExampleArray[0] = 23;
+ExampleArray[1] = "How old are you?";
+ExampleArray[2] = 178.7;
+'''
+순서대로 'int','string','float'형 데이터를 배열에 대입하였다.
+
+'''C++
+int i = any_cast<int>(ExampleArray[0]);
+'''
+만약 이렇게 저장된 데이터를 특정 자료형이 필요한 곳에 사용하려면 casting이 필요하다.
+이때 any_cast()를 사용하여 Casting해주면 된다.
+이때 any_cast 뒤에 <>로 Casting 할 자료형을 명시해줘야 한다.
+
+'''C++
+//ExampleArray[1] 에는 String 데이터가 들어있다.
+any_cast<int>(ExampleArray[1]);
+'''
+만약 변환할 수 없는 자료형으로 Casting을 시도할 경우 'bad_any_cast' Exception을 Throw 한다.
+<p> src="images/bad_any_cast_exception.png </p>
+

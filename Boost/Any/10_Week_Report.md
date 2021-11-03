@@ -59,5 +59,5 @@ int i = any_cast<int>(ExampleArray[0]);
 any_cast<int>(ExampleArray[1]);
 ```
 만약 변환할 수 없는 자료형으로 Casting을 시도할 경우 `bad_any_cast` Exception을 Throw 한다.
-<p> src="images/bad_any_cast_exception.png </p>
+<p> src="images/bad_any_cast_exception.png" </p>
 

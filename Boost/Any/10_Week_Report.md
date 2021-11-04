@@ -52,7 +52,6 @@ any_cast<int>(ExampleArray[1]);
 ><img src="images/bad_any_cast_exception.png"><br>
 >*위 이미지는 throw 를 catch하지 않았을 때 나오는 error*
 
--
 ### 3-2. 헤더파일 분석
 ```c++
 namespace boost {

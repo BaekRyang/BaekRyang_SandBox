@@ -43,8 +43,9 @@ int* i3 = any_cast<int>(&ExampleArray[2]);
 1번째 줄은 int형 데이터로 변환을 하였기에 값이 저장되어있는 메모리주소를 출력하였지만   
 이외는 NULL을 반환하였으므로 0이 출력되었다.
 
->## Bad_Any_Cast
+
 ---
+## Bad_Any_Cast
 헤더파일 분석
 ```c++
 namespace boost {
@@ -57,5 +58,8 @@ namespace boost {
                   "failed conversion using boost::any_cast";
         }
    };
-} //boost의 namespace
+}
 ```
+우리가 익히 알고 있는 클래스의 정의가 bad_any_cast라는 이름의 클래스로 정의되어있다.   
+define되어있는 `BOOST_SYMBOL_VISIBLE`, `BOOST_NOEXCEPT_OR_NOTHROW`, `BOOST_OVERRIDE`는 다른 분석을통해 알아볼 예정이다.   
+우선 유일하게 있는 멤버함수 "const char * what()"이 있다.

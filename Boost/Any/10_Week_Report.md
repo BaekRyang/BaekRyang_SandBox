@@ -44,17 +44,18 @@ int* i3 = any_cast<int>(&ExampleArray[2]);
 이외는 NULL을 반환하였으므로 0이 출력되었다.
 
 >## Bad_Any_Cast
->헤더파일 분석
->```c++
->namespace boost {
->   class BOOST_SYMBOL_VISIBLE bad_any_cast :
->   {
->   public:
->       const char * what() const BOOST_NOEXCEPT_OR_NOTHROW BOOST_OVERRIDE
->       {
->           return "boost::bad_any_cast: "
->                  "failed conversion using boost::any_cast";
->        }
->   };
->} //boost의 namespace
->```
+---
+헤더파일 분석
+```c++
+namespace boost {
+   class BOOST_SYMBOL_VISIBLE bad_any_cast :
+   {
+   public:
+       const char * what() const BOOST_NOEXCEPT_OR_NOTHROW BOOST_OVERRIDE
+       {
+           return "boost::bad_any_cast: "
+                  "failed conversion using boost::any_cast";
+        }
+   };
+} //boost의 namespace
+```

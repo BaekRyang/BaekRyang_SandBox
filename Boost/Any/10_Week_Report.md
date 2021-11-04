@@ -2,7 +2,7 @@
 
 ## Array를 통한 Any의 기본적인 사용
 
-```C++
+>```C++
 any ExampleArray[10];
 ```
 boost:any를 DataType으로 하여 Container, 또는 배열을 선언할 수 있다.<br>

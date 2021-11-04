@@ -3,17 +3,17 @@
 ## Array를 통한 Any의 기본적인 사용
 
 >```C++
-any ExampleArray[10];
-```
-boost:any를 DataType으로 하여 Container, 또는 배열을 선언할 수 있다.<br>
+>any ExampleArray[10];
+>```
+>boost:any를 DataType으로 하여 Container, 또는 배열을 선언할 수 있다.<br>
 
 
-```C++
-ExampleArray[0] = 23;
-ExampleArray[1] = "How old are you?";
-ExampleArray[2] = 178.7;
-```
-순서대로 `int`,`string`,`float`형 데이터를 배열에 대입하였다.<br>
+>```C++
+>ExampleArray[0] = 23;
+>ExampleArray[1] = "How old are you?";
+>ExampleArray[2] = 178.7;
+>```
+>순서대로 `int`,`string`,`float`형 데이터를 배열에 대입하였다.<br>
 
 
 ```C++

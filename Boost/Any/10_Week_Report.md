@@ -28,6 +28,7 @@ any_cast<int>(ExampleArray[1]);
 만약 변환할 수 없는 자료형으로 Casting을 시도할 경우 `bad_any_cast` Exception을 Throw 한다.
 <img src="images/bad_any_cast_exception.png">
 
+
 boost:any는 값을 2가지 방법으로 가져올 수 있는데, 값을 반환하는 방식 그리고 포인터를 반환하는 방식이다.   
 값을 반환하는 방식은 위와 같고 변환하는 타입이 맞지 않으면 bad_any_cast exception을 던진다.   
 포인터를 반환하는 방식은 아래와 같으며 타입이 맞지 않더라도 Exception을 던지지않고, NULL 포인터를 반환한다.
@@ -41,3 +42,19 @@ int* i3 = any_cast<int>(&ExampleArray[2]);
 <img src="images/pointer_cast.png">   
 1번째 줄은 int형 데이터로 변환을 하였기에 값이 저장되어있는 메모리주소를 출력하였지만   
 이외는 NULL을 반환하였으므로 0이 출력되었다.
+
+># Bad_Any_Cast
+>헤더파일 분석
+>```c++
+>namespace boost {
+>   class BOOST_SYMBOL_VISIBLE bad_any_cast :
+>   {
+>   public:
+>       const char * what() const BOOST_NOEXCEPT_OR_NOTHROW BOOST_OVERRIDE
+>       {
+>           return "boost::bad_any_cast: "
+>                  "failed conversion using boost::any_cast";
+>        }
+>   };
+>} //boost의 namespace
+>```

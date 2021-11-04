@@ -41,8 +41,8 @@ int* i3 = any_cast<int>(&ExampleArray[2]);
 
 ---
 
-## 4. Bad_Any_Cast <a name="bad_any_cast"></a>
-### 4-1. Exception Throw
+## 3. Bad_Any_Cast <a name="bad_any_cast"></a>
+### 3-1. Exception Throw
 ```C++
 //ExampleArray[1] 에는 String 데이터가 들어있다.
 any_cast<int>(ExampleArray[1]);
@@ -53,7 +53,7 @@ any_cast<int>(ExampleArray[1]);
 >*위 이미지는 throw 를 catch하지 않았을 때 나오는 error*
 
 -
-### 4-2. 헤더파일 분석
+### 3-2. 헤더파일 분석
 ```c++
 namespace boost {
    class BOOST_SYMBOL_VISIBLE bad_any_cast :
@@ -76,7 +76,7 @@ define되어있는 `BOOST_SYMBOL_VISIBLE`, `BOOST_NOEXCEPT_OR_NOTHROW`, `BOOST_O
 
 이러한 기능 때문에 **Getter** 또는 **bool** 반환값에 많이 사용되는데, 이 경우에는 정해져있는 예외의 정보를 반환하기위해 사용하였다.
 
-### 4-3. Throw된 예외처리하기
+### 3-3. Throw된 예외처리하기
 ```c++
 try {
         string s1 = any_cast<string>(ExampleArray[1]);

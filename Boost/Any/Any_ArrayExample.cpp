@@ -14,8 +14,8 @@ void ArrayExample()
     any ExampleArray[10]; //any 타입의 배열을 선언한다.
 
     ExampleArray[0] = 23;
-    ExampleArray[1] = "How old are you?"; //순서대로 int, String, Float형 데이터를 집어넣었다.
-    ExampleArray[2] = 178.7;
+    ExampleArray[1] = string("How old are you?"); //순서대로 int, String, Float형 데이터를 집어넣었다.
+    ExampleArray[2] = 178.7f;
 
     int* i1 = any_cast<int>(&ExampleArray[0]);
     int* i2 = any_cast<int>(&ExampleArray[1]);
